@@ -11,7 +11,7 @@ def create_app():
     setup_db(app)
 
     with app.app_context():
-        # from . import routes  # Import routes
+        from . import routes  # Import routes
         json_db_file = 'Apprentice_TandemFor400_Data.json'
 
         db_drop_and_create_all()
