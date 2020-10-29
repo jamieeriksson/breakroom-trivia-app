@@ -12,8 +12,9 @@ def create_app():
 
     with app.app_context():
         # from . import routes  # Import routes
+        json_db_file = 'Apprentice_TandemFor400_Data.json'
 
         db_drop_and_create_all()
-        populate_db()
+        populate_db(json_db_file)
 
         return app

@@ -25,7 +25,7 @@ def load_db_json(filename):
     return data
 
 
-def populate_db():
+def populate_db(json_db_data):
     """Imported data in format of:
             [
           {
@@ -35,8 +35,8 @@ def populate_db():
           }]
     """
 
-    trivia_json_path = os.path.join(os.path.abspath('.'), 'Apprentice_TandemFor400_Data.json')
-    trivia_dict = load_db_json(trivia_json_path)
+    json_db_data_path = os.path.join(os.path.abspath('.'), json_db_data)
+    trivia_dict = load_db_json(json_db_data_path)
 
     for trivia_item in trivia_dict:
         question = Question(question=trivia_item["question"])
