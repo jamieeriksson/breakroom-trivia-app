@@ -2,7 +2,7 @@ from flask import abort
 from flask import current_app as app
 from flask import jsonify, request
 
-from .database.models import db_drop_and_create_all, db, Question, Answer
+from .database.models import db, Question
 
 
 @app.route("/quiz", methods=["GET"])
