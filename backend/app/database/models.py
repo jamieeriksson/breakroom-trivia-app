@@ -1,6 +1,8 @@
+import json, os
+
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
-import json
+from sqlalchemy.sql.schema import ForeignKey
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -17,10 +19,9 @@ def db_drop_and_create_all():
     db.create_all()
 
 
-def load_db_json(filepath):
-    with open(filepath) as f:
+def load_db_json(filename):
+    with open(filename) as f:
         data = json.load(f)
-        f.close()
     return data
 
 
@@ -33,19 +34,19 @@ def populate_db():
             "correct": "Devmynd"
           }]
     """
-    
-    trivia_json_path = './Apprentice_TandemFor400_Data.json'
+
+    trivia_json_path = os.path.join(os.path.abspath('.'), 'Apprentice_TandemFor400_Data.json')
     trivia_dict = load_db_json(trivia_json_path)
 
     for trivia_item in trivia_dict:
-        question = Question(question=trivia_item.question)
+        question = Question(question=trivia_item["question"])
         question.insert()
 
-        correct_answer = Answer(answer=trivia_item.correct, is_correct=True)
+        correct_answer = Answer(answer=trivia_item["correct"], is_correct=True)
         correct_answer.question = question
         correct_answer.insert()
 
-        for incorrect in trivia_item.incorrect:
+        for incorrect in trivia_item["incorrect"]:
             incorrect_answer = Answer(answer=incorrect, is_correct=False)
             incorrect_answer.question = question
             incorrect_answer.insert()
