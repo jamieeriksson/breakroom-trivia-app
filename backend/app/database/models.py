@@ -70,9 +70,9 @@ class Question(db.Model):
 
         for answer in self.answers:
             if answer.is_correct:
-                correct_answer = answer
+                correct_answer = answer.answer
             else:
-                incorrect_answers.append(answer)
+                incorrect_answers.append(answer.answer)
 
         return {
             "id": self.id,
