@@ -15,7 +15,7 @@ class TriviaTestCase(unittest.TestCase):
 
         self.client = self.app.test_client()
 
-        test_json_db_file = "test_Apprentice_TandemFor400_Data.json"
+        test_json_db_file = "Apprentice_TandemFor400_TestData.json"
         db_drop_and_create_all()
         populate_db(test_json_db_file)
 
