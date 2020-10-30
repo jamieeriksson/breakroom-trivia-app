@@ -1,17 +1,15 @@
-import json, os
+import json
+import os
 
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql.schema import ForeignKey
 
 db = SQLAlchemy()
-migrate = Migrate()
 
 
 def setup_db(app):
     db.app = app
     db.init_app(app)
-    migrate.init_app(app, db)
 
 
 def db_drop_and_create_all():
@@ -35,7 +33,7 @@ def populate_db(json_db_data):
           }]
     """
 
-    json_db_data_path = os.path.join(os.path.abspath('.'), json_db_data)
+    json_db_data_path = os.path.join(os.path.abspath("."), json_db_data)
     trivia_dict = load_db_json(json_db_data_path)
 
     for trivia_item in trivia_dict:
@@ -78,7 +76,7 @@ class Question(db.Model):
             "id": self.id,
             "question": self.question,
             "incorrect": incorrect_answers,
-            "correct": correct_answer
+            "correct": correct_answer,
         }
 
     def insert(self):

@@ -2,7 +2,7 @@ from flask import abort
 from flask import current_app as app
 from flask import jsonify, request
 
-from .database.models import db, Question
+from .database.models import Question, db
 
 
 @app.route("/quiz", methods=["GET"])
@@ -16,11 +16,10 @@ def quiz():
         formatted_questions = [question.format() for question in all_questions]
 
         for question in formatted_questions:
-            if question["correct"] == "" or len(question["correct"]) > 1:
+            if question["correct"] == "" or type(question["correct"]) != str:
                 formatted_questions.remove(question)
             elif len(question["incorrect"]) != 3:
                 formatted_questions.remove(question)
-
 
         return jsonify(formatted_questions)
     else:
@@ -31,12 +30,11 @@ def quiz():
 ### Error Handlers ###
 ######################
 
+
 @app.errorhandler(404)
 def page_not_found(e):
     return (
-        jsonify(
-            {"error": 404, "message": "resource not found"}
-        ),
+        jsonify({"error": 404, "message": "resource not found"}),
         404,
     )
 
@@ -44,8 +42,6 @@ def page_not_found(e):
 @app.errorhandler(405)
 def method_not_allowed(e):
     return (
-        jsonify(
-            {"error": 405, "message": "method not allowed"}
-        ),
+        jsonify({"error": 405, "message": "method not allowed"}),
         405,
     )
