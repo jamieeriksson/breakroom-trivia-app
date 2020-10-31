@@ -117,36 +117,49 @@ class TriviaQuiz extends React.Component {
     } else {
       return (
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
-          <div className="max-w-6xl w-full h-64 bg-gray-light">
-            <p>
+          <div className="max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
+            <p className="font-cursive text-2xl">
               Question {askedQuestionIds.length}/{triviaItems.length}
             </p>
-            <h2>{currentQuestion}</h2>
-            <form>
-              {currentAnswers.map((answer) => (
-                <label className="font-thin text-lg">
-                  <input
-                    name="triviaAnswer"
-                    type="radio"
-                    id={answer}
-                    value={answer}
-                    onChange={this.handleChange}
-                    className=""
-                  />
-                  {answer}
-                  <br />
-                </label>
-              ))}
-              <input
-                type="submit"
-                value="Submit"
-                onClick={this.handleSubmit}
-                className=""
-              />
-            </form>
-            <button onClick={this.handleNextQuestionClick} className="bg-red">
-              Next Question
-            </button>
+            <div>
+              <p className="font-cursive text-2xl">Time Remaining: 0:00</p>
+            </div>
+            <div className="font-sans place-self-center">
+              <h2 className="text-3xl">{currentQuestion}</h2>
+              <form>
+                <div className="m-4 grid grid-cols-2 grid-rows-2 gap-6">
+                  {currentAnswers.map((answer) => (
+                    <label className="text-2xl">
+                      <input
+                        name="triviaAnswer"
+                        type="radio"
+                        id={answer}
+                        value={answer}
+                        checked={this.state.selectedAnswer === answer}
+                        onChange={this.handleChange}
+                      />
+                      {answer}
+                      <br />
+                    </label>
+                  ))}
+                </div>
+                <input
+                  type="submit"
+                  value="Submit"
+                  onClick={this.handleSubmit}
+                  className=""
+                />
+              </form>
+            </div>
+            <div className="flex flex-row w-full justify-start">
+              <p className="flex-grow font-cursive text-2xl">Total Points: 0</p>
+              <button
+                onClick={this.handleNextQuestionClick}
+                className="px-2 bg-red font-capital text-2xl text-white rounded-md"
+              >
+                Next Question
+              </button>
+            </div>
           </div>
         </div>
       );
