@@ -12,6 +12,7 @@ class TriviaQuiz extends React.Component {
       currentAnswers: [],
       correctAnswer: "",
       selectedAnswer: "",
+      answerIsSubmit: false,
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
@@ -84,6 +85,9 @@ class TriviaQuiz extends React.Component {
   handleNextQuestionClick(e) {
     e.preventDefault();
     this.getNewTriviaQuestion();
+    this.setState({
+      answerIsSubmit: false,
+    });
   }
 
   handleChange(e) {
@@ -99,6 +103,10 @@ class TriviaQuiz extends React.Component {
     if (selectedAnswer == correctAnswer) {
       console.log("You got it right!");
     }
+
+    this.setState({
+      answerIsSubmit: true,
+    });
   }
 
   render() {
@@ -109,6 +117,7 @@ class TriviaQuiz extends React.Component {
       askedQuestionIds,
       currentQuestion,
       currentAnswers,
+      answerIsSubmit,
     } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -124,10 +133,10 @@ class TriviaQuiz extends React.Component {
             <div>
               <p className="font-cursive text-2xl">Time Remaining: 0:00</p>
             </div>
-            <div className="font-sans place-self-center">
-              <h2 className="text-3xl">{currentQuestion}</h2>
-              <form>
-                <div className="m-4 grid grid-cols-2 grid-rows-2 gap-6">
+            <div className="font-sans w-full">
+              <h2 className="text-3xl text-center">{currentQuestion}</h2>
+              <form className="flex flex-col">
+                <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-cols-2 grid-rows-2 gap-6">
                   {currentAnswers.map((answer) => (
                     <label className="text-2xl">
                       <input
@@ -137,28 +146,35 @@ class TriviaQuiz extends React.Component {
                         value={answer}
                         checked={this.state.selectedAnswer === answer}
                         onChange={this.handleChange}
+                        className="mr-4"
                       />
                       {answer}
                       <br />
                     </label>
                   ))}
                 </div>
-                <input
-                  type="submit"
-                  value="Submit"
-                  onClick={this.handleSubmit}
-                  className=""
-                />
+                <div className="flex flex-row w-full justify-start">
+                  <p className="flex-grow font-cursive text-2xl">
+                    Total Points: 0
+                  </p>
+                  <input
+                    type="submit"
+                    value="Submit Answer"
+                    onClick={this.handleSubmit}
+                    className={`px-4 bg-red font-capital text-2xl text-white rounded-md ${
+                      answerIsSubmit ? "hidden" : "block"
+                    } focus:outline-none`}
+                  />
+                  <button
+                    onClick={this.handleNextQuestionClick}
+                    className={`px-4 bg-red font-capital text-2xl text-white rounded-md ${
+                      answerIsSubmit ? "block" : "hidden"
+                    } focus:outline-none`}
+                  >
+                    Next Question
+                  </button>
+                </div>
               </form>
-            </div>
-            <div className="flex flex-row w-full justify-start">
-              <p className="flex-grow font-cursive text-2xl">Total Points: 0</p>
-              <button
-                onClick={this.handleNextQuestionClick}
-                className="px-2 bg-red font-capital text-2xl text-white rounded-md"
-              >
-                Next Question
-              </button>
             </div>
           </div>
         </div>
