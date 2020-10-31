@@ -1,8 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import App from "App.js";
+import "./tailwind.output.css";
+import App from "./app.js";
 
-const rootElement = document.getElementById("react-app");
-
-ReactDOM.render(<App />, rootElement);
+ReactDOM.render(<App />, document.getElementById("root"));
