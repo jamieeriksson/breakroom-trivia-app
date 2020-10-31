@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TriviaQuiz from "./components/trivia-quiz.js";
 
-class App extends Component {
+class App extends React.Component {
   render() {
     return (
       <Router>
