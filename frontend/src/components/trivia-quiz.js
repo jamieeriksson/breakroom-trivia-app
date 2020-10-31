@@ -11,10 +11,13 @@ class TriviaQuiz extends React.Component {
       currentQuestion: "",
       currentAnswers: [],
       correctAnswer: "",
+      selectedAnswer: "",
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
     this.handleNextQuestionClick = this.handleNextQuestionClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -47,7 +50,7 @@ class TriviaQuiz extends React.Component {
   }
 
   getNewTriviaQuestion() {
-    let triviaItems = this.state.triviaItems;
+    const triviaItems = this.state.triviaItems;
     let askedQuestionIds = this.state.askedQuestionIds;
     let newAnswers = [];
     let newQuestion = "";
@@ -57,10 +60,10 @@ class TriviaQuiz extends React.Component {
       console.log(newQuestion);
     } while (askedQuestionIds.includes(newQuestion.id));
 
-    askedQuestionIds.push(newQuestion.id);
-
+    askedQuestionIds = askedQuestionIds.concat(newQuestion.id);
     newAnswers = newQuestion.incorrect;
-    newAnswers.push(newQuestion.correct);
+    newAnswers = newAnswers.concat(newQuestion.correct);
+    console.log(newAnswers);
 
     // Randomize answer order with Fisher-Yates Algorithm
     for (let i = newAnswers.length - 1; i > 0; i--) {
@@ -74,12 +77,28 @@ class TriviaQuiz extends React.Component {
       askedQuestionIds: askedQuestionIds,
       currentQuestion: newQuestion.question,
       currentAnswers: newAnswers,
+      correctAnswer: newQuestion.correct,
     });
   }
 
   handleNextQuestionClick(e) {
     e.preventDefault();
     this.getNewTriviaQuestion();
+  }
+
+  handleChange(e) {
+    this.setState({
+      selectedAnswer: e.target.value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const selectedAnswer = this.state.selectedAnswer;
+    const correctAnswer = this.state.correctAnswer;
+    if (selectedAnswer == correctAnswer) {
+      console.log("You got it right!");
+    }
   }
 
   render() {
@@ -103,12 +122,28 @@ class TriviaQuiz extends React.Component {
               Question {askedQuestionIds.length}/{triviaItems.length}
             </p>
             <h2>{currentQuestion}</h2>
-            <ul>
-              <li>{currentAnswers[0]}</li>
-              <li>{currentAnswers[1]}</li>
-              <li>{currentAnswers[2]}</li>
-              <li>{currentAnswers[3]}</li>
-            </ul>
+            <form>
+              {currentAnswers.map((answer) => (
+                <label className="font-thin text-lg">
+                  <input
+                    name="triviaAnswer"
+                    type="radio"
+                    id={answer}
+                    value={answer}
+                    onChange={this.handleChange}
+                    className=""
+                  />
+                  {answer}
+                  <br />
+                </label>
+              ))}
+              <input
+                type="submit"
+                value="Submit"
+                onClick={this.handleSubmit}
+                className=""
+              />
+            </form>
             <button onClick={this.handleNextQuestionClick} className="bg-red">
               Next Question
             </button>
