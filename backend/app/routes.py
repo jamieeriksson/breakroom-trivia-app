@@ -21,7 +21,7 @@ def quiz():
             elif len(question["incorrect"]) != 3:
                 formatted_questions.remove(question)
 
-        return jsonify(formatted_questions)
+        return jsonify({"items": formatted_questions})
     else:
         abort(405)
 
