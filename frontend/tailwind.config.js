@@ -31,15 +31,14 @@ module.exports = {
         900: "#1a202c",
       },
     },
-    fontFamily: {
-      sans: ["Rubik", "sans-serif"],
-      cursive: ["Architects Daughter", "cursive"],
-      capital: ["Bebas Neue", "cursive"],
-    },
     extend: {
       fontFamily: {
-        sans: ["Lato", "sans-serif"],
-        title: ["Fjalla One", "sans-serif"],
+        sans: ["Rubik", "sans-serif"],
+        cursive: ["Architects Daughter", "cursive"],
+        capital: ["Bebas Neue", "cursive"],
+      },
+      borderRadius: {
+        xl: "25px",
       },
     },
   },

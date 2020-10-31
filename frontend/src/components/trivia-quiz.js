@@ -11,10 +11,14 @@ class TriviaQuiz extends React.Component {
       currentQuestion: "",
       currentAnswers: [],
       correctAnswer: "",
+      selectedAnswer: "",
+      answerIsSubmit: false,
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
     this.handleNextQuestionClick = this.handleNextQuestionClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   async componentDidMount() {
@@ -47,7 +51,7 @@ class TriviaQuiz extends React.Component {
   }
 
   getNewTriviaQuestion() {
-    let triviaItems = this.state.triviaItems;
+    const triviaItems = this.state.triviaItems;
     let askedQuestionIds = this.state.askedQuestionIds;
     let newAnswers = [];
     let newQuestion = "";
@@ -57,10 +61,10 @@ class TriviaQuiz extends React.Component {
       console.log(newQuestion);
     } while (askedQuestionIds.includes(newQuestion.id));
 
-    askedQuestionIds.push(newQuestion.id);
-
+    askedQuestionIds = askedQuestionIds.concat(newQuestion.id);
     newAnswers = newQuestion.incorrect;
-    newAnswers.push(newQuestion.correct);
+    newAnswers = newAnswers.concat(newQuestion.correct);
+    console.log(newAnswers);
 
     // Randomize answer order with Fisher-Yates Algorithm
     for (let i = newAnswers.length - 1; i > 0; i--) {
@@ -74,12 +78,35 @@ class TriviaQuiz extends React.Component {
       askedQuestionIds: askedQuestionIds,
       currentQuestion: newQuestion.question,
       currentAnswers: newAnswers,
+      correctAnswer: newQuestion.correct,
     });
   }
 
   handleNextQuestionClick(e) {
     e.preventDefault();
     this.getNewTriviaQuestion();
+    this.setState({
+      answerIsSubmit: false,
+    });
+  }
+
+  handleChange(e) {
+    this.setState({
+      selectedAnswer: e.target.value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const selectedAnswer = this.state.selectedAnswer;
+    const correctAnswer = this.state.correctAnswer;
+    if (selectedAnswer == correctAnswer) {
+      console.log("You got it right!");
+    }
+
+    this.setState({
+      answerIsSubmit: true,
+    });
   }
 
   render() {
@@ -90,6 +117,7 @@ class TriviaQuiz extends React.Component {
       askedQuestionIds,
       currentQuestion,
       currentAnswers,
+      answerIsSubmit,
     } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -98,20 +126,56 @@ class TriviaQuiz extends React.Component {
     } else {
       return (
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
-          <div className="max-w-6xl w-full h-64 bg-gray-light">
-            <p>
+          <div className="max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
+            <p className="font-cursive text-2xl">
               Question {askedQuestionIds.length}/{triviaItems.length}
             </p>
-            <h2>{currentQuestion}</h2>
-            <ul>
-              <li>{currentAnswers[0]}</li>
-              <li>{currentAnswers[1]}</li>
-              <li>{currentAnswers[2]}</li>
-              <li>{currentAnswers[3]}</li>
-            </ul>
-            <button onClick={this.handleNextQuestionClick} className="bg-red">
-              Next Question
-            </button>
+            <div>
+              <p className="font-cursive text-2xl">Time Remaining: 0:00</p>
+            </div>
+            <div className="font-sans w-full">
+              <h2 className="text-3xl text-center">{currentQuestion}</h2>
+              <form className="flex flex-col">
+                <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-cols-2 grid-rows-2 gap-6">
+                  {currentAnswers.map((answer) => (
+                    <label className="text-2xl">
+                      <input
+                        name="triviaAnswer"
+                        type="radio"
+                        id={answer}
+                        value={answer}
+                        checked={this.state.selectedAnswer === answer}
+                        onChange={this.handleChange}
+                        className="mr-4"
+                      />
+                      {answer}
+                      <br />
+                    </label>
+                  ))}
+                </div>
+                <div className="flex flex-row w-full justify-start">
+                  <p className="flex-grow font-cursive text-2xl">
+                    Total Points: 0
+                  </p>
+                  <input
+                    type="submit"
+                    value="Submit Answer"
+                    onClick={this.handleSubmit}
+                    className={`px-4 bg-red font-capital text-2xl text-white rounded-md ${
+                      answerIsSubmit ? "hidden" : "block"
+                    } focus:outline-none`}
+                  />
+                  <button
+                    onClick={this.handleNextQuestionClick}
+                    className={`px-4 bg-red font-capital text-2xl text-white rounded-md ${
+                      answerIsSubmit ? "block" : "hidden"
+                    } focus:outline-none`}
+                  >
+                    Next Question
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       );

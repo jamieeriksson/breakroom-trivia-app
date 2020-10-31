@@ -414,7 +414,7 @@ ul {
  */
 
 html {
-  font-family: Lato, sans-serif; /* 1 */
+  font-family: Rubik, sans-serif; /* 1 */
   line-height: 1.5; /* 2 */
 }
 
@@ -554,7 +554,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 /**
@@ -3014,7 +3014,7 @@ video {
 }
 
 .rounded-xl {
-  border-radius: 0.75rem;
+  border-radius: 25px;
 }
 
 .rounded-2xl {
@@ -3130,23 +3130,23 @@ video {
 }
 
 .rounded-t-xl {
-  border-top-left-radius: 0.75rem;
-  border-top-right-radius: 0.75rem;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }
 
 .rounded-r-xl {
-  border-top-right-radius: 0.75rem;
-  border-bottom-right-radius: 0.75rem;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 
 .rounded-b-xl {
-  border-bottom-right-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
+  border-bottom-right-radius: 25px;
+  border-bottom-left-radius: 25px;
 }
 
 .rounded-l-xl {
-  border-top-left-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
 }
 
 .rounded-t-2xl {
@@ -3290,19 +3290,19 @@ video {
 }
 
 .rounded-tl-xl {
-  border-top-left-radius: 0.75rem;
+  border-top-left-radius: 25px;
 }
 
 .rounded-tr-xl {
-  border-top-right-radius: 0.75rem;
+  border-top-right-radius: 25px;
 }
 
 .rounded-br-xl {
-  border-bottom-right-radius: 0.75rem;
+  border-bottom-right-radius: 25px;
 }
 
 .rounded-bl-xl {
-  border-bottom-left-radius: 0.75rem;
+  border-bottom-left-radius: 25px;
 }
 
 .rounded-tl-2xl {
@@ -3936,7 +3936,15 @@ video {
 }
 
 .font-sans {
-  font-family: Lato, sans-serif;
+  font-family: Rubik, sans-serif;
+}
+
+.font-serif {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+.font-mono {
+  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 .font-cursive {
@@ -3945,10 +3953,6 @@ video {
 
 .font-capital {
   font-family: Bebas Neue, cursive;
-}
-
-.font-title {
-  font-family: Fjalla One, sans-serif;
 }
 
 .font-hairline {
@@ -13855,7 +13859,7 @@ video {
   }
 
   .sm\:rounded-xl {
-    border-radius: 0.75rem;
+    border-radius: 25px;
   }
 
   .sm\:rounded-2xl {
@@ -13971,23 +13975,23 @@ video {
   }
 
   .sm\:rounded-t-xl {
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
 
   .sm\:rounded-r-xl {
-    border-top-right-radius: 0.75rem;
-    border-bottom-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
   }
 
   .sm\:rounded-b-xl {
-    border-bottom-right-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .sm\:rounded-l-xl {
-    border-top-left-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .sm\:rounded-t-2xl {
@@ -14131,19 +14135,19 @@ video {
   }
 
   .sm\:rounded-tl-xl {
-    border-top-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
   }
 
   .sm\:rounded-tr-xl {
-    border-top-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
   }
 
   .sm\:rounded-br-xl {
-    border-bottom-right-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
   }
 
   .sm\:rounded-bl-xl {
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-left-radius: 25px;
   }
 
   .sm\:rounded-tl-2xl {
@@ -14777,7 +14781,15 @@ video {
   }
 
   .sm\:font-sans {
-    font-family: Lato, sans-serif;
+    font-family: Rubik, sans-serif;
+  }
+
+  .sm\:font-serif {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .sm\:font-mono {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
   .sm\:font-cursive {
@@ -14786,10 +14798,6 @@ video {
 
   .sm\:font-capital {
     font-family: Bebas Neue, cursive;
-  }
-
-  .sm\:font-title {
-    font-family: Fjalla One, sans-serif;
   }
 
   .sm\:font-hairline {
@@ -24625,7 +24633,7 @@ video {
   }
 
   .md\:rounded-xl {
-    border-radius: 0.75rem;
+    border-radius: 25px;
   }
 
   .md\:rounded-2xl {
@@ -24741,23 +24749,23 @@ video {
   }
 
   .md\:rounded-t-xl {
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
 
   .md\:rounded-r-xl {
-    border-top-right-radius: 0.75rem;
-    border-bottom-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
   }
 
   .md\:rounded-b-xl {
-    border-bottom-right-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .md\:rounded-l-xl {
-    border-top-left-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .md\:rounded-t-2xl {
@@ -24901,19 +24909,19 @@ video {
   }
 
   .md\:rounded-tl-xl {
-    border-top-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
   }
 
   .md\:rounded-tr-xl {
-    border-top-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
   }
 
   .md\:rounded-br-xl {
-    border-bottom-right-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
   }
 
   .md\:rounded-bl-xl {
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-left-radius: 25px;
   }
 
   .md\:rounded-tl-2xl {
@@ -25547,7 +25555,15 @@ video {
   }
 
   .md\:font-sans {
-    font-family: Lato, sans-serif;
+    font-family: Rubik, sans-serif;
+  }
+
+  .md\:font-serif {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .md\:font-mono {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
   .md\:font-cursive {
@@ -25556,10 +25572,6 @@ video {
 
   .md\:font-capital {
     font-family: Bebas Neue, cursive;
-  }
-
-  .md\:font-title {
-    font-family: Fjalla One, sans-serif;
   }
 
   .md\:font-hairline {
@@ -35395,7 +35407,7 @@ video {
   }
 
   .lg\:rounded-xl {
-    border-radius: 0.75rem;
+    border-radius: 25px;
   }
 
   .lg\:rounded-2xl {
@@ -35511,23 +35523,23 @@ video {
   }
 
   .lg\:rounded-t-xl {
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
 
   .lg\:rounded-r-xl {
-    border-top-right-radius: 0.75rem;
-    border-bottom-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
   }
 
   .lg\:rounded-b-xl {
-    border-bottom-right-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .lg\:rounded-l-xl {
-    border-top-left-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .lg\:rounded-t-2xl {
@@ -35671,19 +35683,19 @@ video {
   }
 
   .lg\:rounded-tl-xl {
-    border-top-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
   }
 
   .lg\:rounded-tr-xl {
-    border-top-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
   }
 
   .lg\:rounded-br-xl {
-    border-bottom-right-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
   }
 
   .lg\:rounded-bl-xl {
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-left-radius: 25px;
   }
 
   .lg\:rounded-tl-2xl {
@@ -36317,7 +36329,15 @@ video {
   }
 
   .lg\:font-sans {
-    font-family: Lato, sans-serif;
+    font-family: Rubik, sans-serif;
+  }
+
+  .lg\:font-serif {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .lg\:font-mono {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
   .lg\:font-cursive {
@@ -36326,10 +36346,6 @@ video {
 
   .lg\:font-capital {
     font-family: Bebas Neue, cursive;
-  }
-
-  .lg\:font-title {
-    font-family: Fjalla One, sans-serif;
   }
 
   .lg\:font-hairline {
@@ -46165,7 +46181,7 @@ video {
   }
 
   .xl\:rounded-xl {
-    border-radius: 0.75rem;
+    border-radius: 25px;
   }
 
   .xl\:rounded-2xl {
@@ -46281,23 +46297,23 @@ video {
   }
 
   .xl\:rounded-t-xl {
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
   }
 
   .xl\:rounded-r-xl {
-    border-top-right-radius: 0.75rem;
-    border-bottom-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
   }
 
   .xl\:rounded-b-xl {
-    border-bottom-right-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .xl\:rounded-l-xl {
-    border-top-left-radius: 0.75rem;
-    border-bottom-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
   }
 
   .xl\:rounded-t-2xl {
@@ -46441,19 +46457,19 @@ video {
   }
 
   .xl\:rounded-tl-xl {
-    border-top-left-radius: 0.75rem;
+    border-top-left-radius: 25px;
   }
 
   .xl\:rounded-tr-xl {
-    border-top-right-radius: 0.75rem;
+    border-top-right-radius: 25px;
   }
 
   .xl\:rounded-br-xl {
-    border-bottom-right-radius: 0.75rem;
+    border-bottom-right-radius: 25px;
   }
 
   .xl\:rounded-bl-xl {
-    border-bottom-left-radius: 0.75rem;
+    border-bottom-left-radius: 25px;
   }
 
   .xl\:rounded-tl-2xl {
@@ -47087,7 +47103,15 @@ video {
   }
 
   .xl\:font-sans {
-    font-family: Lato, sans-serif;
+    font-family: Rubik, sans-serif;
+  }
+
+  .xl\:font-serif {
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+
+  .xl\:font-mono {
+    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   }
 
   .xl\:font-cursive {
@@ -47096,10 +47120,6 @@ video {
 
   .xl\:font-capital {
     font-family: Bebas Neue, cursive;
-  }
-
-  .xl\:font-title {
-    font-family: Fjalla One, sans-serif;
   }
 
   .xl\:font-hairline {
