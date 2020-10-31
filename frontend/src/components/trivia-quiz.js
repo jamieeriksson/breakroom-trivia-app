@@ -31,7 +31,7 @@ class TriviaQuiz extends React.Component {
           isLoaded: true,
           triviaItems: json.items,
         });
-        // this.getNewTriviaQuestion();
+        this.getNewTriviaQuestion();
       }
     } catch (error) {
       console.log(error);
@@ -100,7 +100,7 @@ class TriviaQuiz extends React.Component {
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
           <div className="max-w-6xl w-full h-64 bg-gray-light">
             <p>
-              {/* Question {askedQuestionIds.length}/{triviaItems.length} */}
+              Question {askedQuestionIds.length}/{triviaItems.length}
             </p>
             <h2>{currentQuestion}</h2>
             <ul>
@@ -109,7 +109,7 @@ class TriviaQuiz extends React.Component {
               <li>{currentAnswers[2]}</li>
               <li>{currentAnswers[3]}</li>
             </ul>
-            <button onClick={this.handleClick} className="bg-red">
+            <button onClick={this.handleNextQuestionClick} className="bg-red">
               Next Question
             </button>
           </div>
