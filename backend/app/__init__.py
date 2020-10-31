@@ -1,6 +1,7 @@
 from os import environ
 
 from flask import Flask
+from flask_cors import CORS
 
 from .database.models import db_drop_and_create_all, populate_db, setup_db
 
@@ -8,6 +9,7 @@ from .database.models import db_drop_and_create_all, populate_db, setup_db
 def create_app():
     """Initialize core application"""
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object("config.DevConfig")
 
     setup_db(app)
