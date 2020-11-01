@@ -95,6 +95,7 @@ class TriviaQuiz extends React.Component {
       submitMessage: "",
       minutes: 0,
       seconds: 10,
+      totalPoints: 0,
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
@@ -107,8 +108,6 @@ class TriviaQuiz extends React.Component {
 
   async componentDidMount() {
     this._isMounted = true;
-    this.questionMinutes = 0;
-    this.questionSeconds = 10;
 
     try {
       const response = await fetch("http://localhost:4444/quiz");
@@ -176,8 +175,8 @@ class TriviaQuiz extends React.Component {
     this.getNewTriviaQuestion();
     this.setState({
       answerIsSubmit: false,
-      minutes: this.questionMinutes,
-      seconds: this.questionSeconds,
+      minutes: 0,
+      seconds: 10,
     });
   }
 
@@ -191,6 +190,7 @@ class TriviaQuiz extends React.Component {
     e.preventDefault();
     const selectedAnswer = this.state.selectedAnswer;
     const correctAnswer = this.state.correctAnswer;
+    const totalPoints = this.state.totalPoints;
 
     if (!selectedAnswer) {
       this.setState({
@@ -202,6 +202,7 @@ class TriviaQuiz extends React.Component {
         answerIsSubmit: true,
         minutes: 0,
         seconds: 0,
+        totalPoints: totalPoints + 10,
       });
     } else if (selectedAnswer != correctAnswer) {
       this.setState({
@@ -259,6 +260,7 @@ class TriviaQuiz extends React.Component {
       correctAnswer,
       minutes,
       seconds,
+      totalPoints,
     } = this.state;
 
     if (error) {
@@ -305,7 +307,7 @@ class TriviaQuiz extends React.Component {
                 </p>
                 <div className="flex flex-row w-full justify-start">
                   <p className="flex-grow font-cursive text-2xl">
-                    Total Points: 0
+                    Total Points: {totalPoints}
                   </p>
                   <input
                     type="submit"
