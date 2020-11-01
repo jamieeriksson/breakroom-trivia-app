@@ -49,6 +49,10 @@ module.exports = {
       animation: {
         timer: "roundtime 90s steps(1000, end) forwards",
       },
+      fontSize: {
+        "7xl": "5rem",
+        "8xl": "6rem",
+      },
     },
   },
   variants: {},
