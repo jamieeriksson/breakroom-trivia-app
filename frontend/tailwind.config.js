@@ -1,3 +1,5 @@
+const { faBalanceScale } = require("@fortawesome/free-solid-svg-icons");
+
 module.exports = {
   purge: [
     "src/**/*.js",
@@ -45,13 +47,51 @@ module.exports = {
           "0%": { transform: "scaleX(0)" },
           "100%": { transform: "scaleX(1)" },
         },
+        grow: {
+          "0%": { opacity: 0 },
+          "50%": { opacity: "5%" },
+          "100%": { opacity: 0, transform: "scale(1, 1)" },
+        },
       },
       animation: {
         timer: "roundtime 90s steps(1000, end) forwards",
+        "grow-early": "grow 30s -5s backwards infinite",
+        "grow-normal": "grow 30s -2s backwards infinite",
+        "grow-less-delayed": "grow 30s 5s backwards infinite",
+        "grow-delayed": "grow 30s 7s backwards infinite",
       },
       fontSize: {
         "7xl": "5rem",
         "8xl": "6rem",
+      },
+      inset: {
+        1: "1%",
+        2: "2%",
+        5: "5%",
+        6: "6%",
+        8: "8%",
+        10: "10%",
+        12: "12%",
+        16: "16%",
+        24: "24%",
+        "1/2": "50%",
+        "-1": "-1%",
+        "-2": "-2%",
+        "-5": "-5%",
+        "-6": "-6%",
+        "-8": "-8%",
+        "-10": "-10%",
+        "-12": "-12%",
+      },
+      rotate: {
+        "-25": "-25deg",
+        "-7": "-7deg",
+        "-12": "-12deg",
+        "-15": "-15deg",
+        12: "12deg",
+        15: "15deg",
+        7: "7deg",
+        25: "25deg",
       },
     },
   },
