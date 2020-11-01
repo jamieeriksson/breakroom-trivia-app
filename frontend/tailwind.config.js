@@ -32,6 +32,18 @@ module.exports = {
         800: "#2d3748",
         900: "#1a202c",
       },
+      filter: {
+        // defaults to {}
+        none: "none",
+        grayscale: "grayscale(1)",
+        invert: "invert(1)",
+        sepia: "sepia(1)",
+      },
+      backdropFilter: {
+        // defaults to {}
+        none: "none",
+        blur: "blur(20px)",
+      },
     },
     extend: {
       fontFamily: {
@@ -95,6 +107,9 @@ module.exports = {
       },
     },
   },
-  variants: {},
-  plugins: [],
+  variants: {
+    filter: ["responsive"], // defaults to ['responsive']
+    backdropFilter: ["responsive"], // defaults to ['responsive']
+  },
+  plugins: [require("tailwindcss-filters")],
 };
