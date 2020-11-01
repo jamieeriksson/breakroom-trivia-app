@@ -322,8 +322,8 @@ class TriviaQuiz extends React.Component {
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
           <Header fromQuizView={false} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-            <p className="text-3xl text-center">
+          <div className="z-10 max-w-6xl w-full mx-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
+            <p className="text-xl md:text-3xl text-center">
               An error occured: {error.message}
             </p>
           </div>
@@ -334,8 +334,8 @@ class TriviaQuiz extends React.Component {
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
           <Header fromQuizView={false} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-            <p className="text-3xl text-center">Loading...</p>
+          <div className="z-10 max-w-6xl w-full mx-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
+            <p className="text-xl md:text-3xl text-center">Loading...</p>
           </div>
         </div>
       );
