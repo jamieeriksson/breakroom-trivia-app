@@ -2,7 +2,7 @@
 
 ## About the Project
 
-This application was created for the Udacity Fullstack Nanodegree Capstone project. It contains a Flask application for an ultimate frisbee team and player management site. It keeps track of registered players and teams and allows you to roster players under the teams they are playing for each season.
+This application was created for the 2020 Tandem Apprentice Challenge. The goal was to create an application for users to be able to play trivia rounds. Each round consists of 10 multiple choice trivia questions randomly selected from a complete database of possible questions.
 
 ## Getting Started
 
