@@ -25,7 +25,7 @@ class ScoreView extends React.Component {
 
     return (
       <div className="bg-blue-light w-screen min-h-screen flex flex-col">
-        <Header fromQuizView={true} />
+        <Header fromQuizView={false} />
         <QuestionBg className="z-0" />
         <div className="flex-grow flex justify-center place-items-center w-screen">
           <div className="z-10 max-w-xl w-full mx-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col">
