@@ -1,4 +1,61 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+class TriviaAnswer extends React.Component {
+  render() {
+    const answer = this.props.answer;
+    const correctAnswer = this.props.correctAnswer;
+    const selectedAnswer = this.props.selectedAnswer;
+    const answerIsSubmit = this.props.answerIsSubmit;
+
+    if (answer == correctAnswer) {
+      return (
+        <label className="text-2xl flex place-items-center">
+          <input
+            name="triviaAnswer"
+            type="radio"
+            id={answer}
+            value={answer}
+            checked={selectedAnswer === answer}
+            onChange={this.props.handleChange}
+            className="mr-4"
+          />
+          <span>{answer}</span>
+          <FontAwesomeIcon
+            icon={faCheck}
+            size="2x"
+            color="#26AC1B"
+            className={`ml-6 ${answerIsSubmit ? "inline" : "hidden"}`}
+          />
+        </label>
+      );
+    } else {
+      return (
+        <label className="text-2xl flex place-items-center">
+          <input
+            name="triviaAnswer"
+            type="radio"
+            id={answer}
+            value={answer}
+            checked={selectedAnswer === answer}
+            onChange={this.props.handleChange}
+            className="mr-4"
+          />
+          <span>{answer}</span>
+          <FontAwesomeIcon
+            icon={faTimes}
+            size="2x"
+            color="#CF5C36"
+            className={`ml-6 ${answerIsSubmit ? "inline" : "hidden"}`}
+          />
+        </label>
+      );
+    }
+  }
+}
 
 class TriviaQuiz extends React.Component {
   constructor(props) {
@@ -13,6 +70,7 @@ class TriviaQuiz extends React.Component {
       correctAnswer: "",
       selectedAnswer: "",
       answerIsSubmit: false,
+      submitMessage: "",
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
@@ -79,6 +137,8 @@ class TriviaQuiz extends React.Component {
       currentQuestion: newQuestion.question,
       currentAnswers: newAnswers,
       correctAnswer: newQuestion.correct,
+      submitMessage: "",
+      selectedAnswer: "",
     });
   }
 
@@ -100,13 +160,21 @@ class TriviaQuiz extends React.Component {
     e.preventDefault();
     const selectedAnswer = this.state.selectedAnswer;
     const correctAnswer = this.state.correctAnswer;
-    if (selectedAnswer == correctAnswer) {
-      console.log("You got it right!");
+    if (!selectedAnswer) {
+      this.setState({
+        submitMessage: "Please select an answer before submitting.",
+      });
+    } else if (selectedAnswer == correctAnswer) {
+      this.setState({
+        submitMessage: "You answered correctly!",
+        answerIsSubmit: true,
+      });
+    } else if (selectedAnswer != correctAnswer) {
+      this.setState({
+        submitMessage: "You answered incorrectly.",
+        answerIsSubmit: true,
+      });
     }
-
-    this.setState({
-      answerIsSubmit: true,
-    });
   }
 
   render() {
@@ -118,7 +186,10 @@ class TriviaQuiz extends React.Component {
       currentQuestion,
       currentAnswers,
       answerIsSubmit,
+      submitMessage,
+      correctAnswer,
     } = this.state;
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -133,26 +204,29 @@ class TriviaQuiz extends React.Component {
             <div>
               <p className="font-cursive text-2xl">Time Remaining: 0:00</p>
             </div>
-            <div className="font-sans w-full">
+            <div className="font-sans w-full mt-4">
               <h2 className="text-3xl text-center">{currentQuestion}</h2>
               <form className="flex flex-col">
                 <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-cols-2 grid-rows-2 gap-6">
                   {currentAnswers.map((answer) => (
-                    <label className="text-2xl">
-                      <input
-                        name="triviaAnswer"
-                        type="radio"
-                        id={answer}
-                        value={answer}
-                        checked={this.state.selectedAnswer === answer}
-                        onChange={this.handleChange}
-                        className="mr-4"
-                      />
-                      {answer}
-                      <br />
-                    </label>
+                    <TriviaAnswer
+                      answer={answer}
+                      correctAnswer={correctAnswer}
+                      selectedAnswer={this.state.selectedAnswer}
+                      handleChange={this.handleChange}
+                      answerIsSubmit={answerIsSubmit}
+                    />
                   ))}
                 </div>
+                <p
+                  className={`self-center font-cursive text-2xl ${
+                    this.state.selectedAnswer == this.state.correctAnswer
+                      ? "text-green"
+                      : "text-red"
+                  }`}
+                >
+                  {submitMessage}
+                </p>
                 <div className="flex flex-row w-full justify-start">
                   <p className="flex-grow font-cursive text-2xl">
                     Total Points: 0
@@ -161,17 +235,22 @@ class TriviaQuiz extends React.Component {
                     type="submit"
                     value="Submit Answer"
                     onClick={this.handleSubmit}
-                    className={`px-4 bg-red font-capital text-2xl text-white rounded-md ${
+                    className={`px-4 py-1 bg-red font-capital text-2xl text-white rounded-md ${
                       answerIsSubmit ? "hidden" : "block"
                     } focus:outline-none`}
                   />
                   <button
                     onClick={this.handleNextQuestionClick}
-                    className={`px-4 bg-red font-capital text-2xl text-white rounded-md ${
+                    className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
                       answerIsSubmit ? "block" : "hidden"
                     } focus:outline-none`}
                   >
                     Next Question
+                    <FontAwesomeIcon
+                      icon={faArrowRight}
+                      color="#FBFBFF"
+                      className="ml-2"
+                    />
                   </button>
                 </div>
               </form>
