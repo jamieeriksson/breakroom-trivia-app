@@ -83,7 +83,7 @@ class Timer extends React.Component {
 
     return (
       <div className="flex flex-col">
-        <p className="self-end font-cursive text-xl md:text-2xl">
+        <p className="self-center md:self-end font-cursive text-xl md:text-2xl">
           Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </p>
         <div className="relative h-4 w-full">
@@ -345,7 +345,7 @@ class TriviaQuiz extends React.Component {
           <Header fromQuizView={true} />
           <QuestionBg className="z-0" />
           <div className="z-10 max-w-6xl w-full mx-6 py-4 px-6 bg-gray-light rounded-xl flex flex-col">
-            <p className="font-cursive text-xl md:text-2xl">
+            <p className="font-cursive text-xl md:text-2xl font-bold self-center md:self-start">
               Question {askedQuestionIds.length}/{quizLength}
             </p>
             <div>
@@ -382,21 +382,22 @@ class TriviaQuiz extends React.Component {
                 >
                   {submitMessage}
                 </p>
-                <div className="flex flex-row w-full justify-start">
-                  <p className="flex-grow font-cursive text-2xl">
+                <div className="flex flex-col md:flex-row w-full mt-4 md:mt-0 justify-start place-items-center">
+                  <p className="order-2 md:order-1 mt-4 md:mt-0 font-cursive text-center text-xl md:text-2xl">
                     Total Points: {totalPoints}
                   </p>
+                  <div className="order-2 flex-grow hidden md:block"> </div>
                   <input
                     type="submit"
                     value="Submit Answer"
                     onClick={this.handleSubmit}
-                    className={`px-4 py-1 bg-red font-capital text-2xl text-white rounded-md ${
+                    className={`order-1 md:order-3 px-2 md:px-4 py-1 bg-red font-capital text-xl md:text-2xl text-white rounded-md ${
                       answerIsSubmit ? "hidden" : "block"
                     } focus:outline-none`}
                   />
                   <button
                     onClick={this.handleNextQuestionClick}
-                    className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
+                    className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
                       answerIsSubmit && askedQuestionIds.length != quizLength
                         ? "block"
                         : "hidden"
@@ -414,7 +415,7 @@ class TriviaQuiz extends React.Component {
                       pathname: "/score",
                       state: { score: totalPoints },
                     }}
-                    className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
+                    className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
                       answerIsSubmit && askedQuestionIds.length == quizLength
                         ? "block"
                         : "hidden"
