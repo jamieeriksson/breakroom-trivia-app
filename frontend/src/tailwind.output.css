@@ -12783,6 +12783,34 @@ video {
   }
 }
 
+@-webkit-keyframes twist {
+  0% {
+    transform: rotate(12deg);
+  }
+
+  50% {
+    transform: rotate(-12deg);
+  }
+
+  100% {
+    transform: rotate(12deg);
+  }
+}
+
+@keyframes twist {
+  0% {
+    transform: rotate(12deg);
+  }
+
+  50% {
+    transform: rotate(-12deg);
+  }
+
+  100% {
+    transform: rotate(12deg);
+  }
+}
+
 .animate-none {
   -webkit-animation: none;
           animation: none;
@@ -12831,6 +12859,11 @@ video {
 .animate-grow-delayed {
   -webkit-animation: grow 30s 7s backwards infinite;
           animation: grow 30s 7s backwards infinite;
+}
+
+.animate-twist {
+  -webkit-animation: twist 2s infinite;
+          animation: twist 2s infinite;
 }
 
 .scrollbar {
@@ -25297,6 +25330,11 @@ video {
     -webkit-animation: grow 30s 7s backwards infinite;
             animation: grow 30s 7s backwards infinite;
   }
+
+  .sm\:animate-twist {
+    -webkit-animation: twist 2s infinite;
+            animation: twist 2s infinite;
+  }
 }
 
 @media (min-width: 768px) {
@@ -37420,6 +37458,11 @@ video {
   .md\:animate-grow-delayed {
     -webkit-animation: grow 30s 7s backwards infinite;
             animation: grow 30s 7s backwards infinite;
+  }
+
+  .md\:animate-twist {
+    -webkit-animation: twist 2s infinite;
+            animation: twist 2s infinite;
   }
 }
 
@@ -49545,6 +49588,11 @@ video {
     -webkit-animation: grow 30s 7s backwards infinite;
             animation: grow 30s 7s backwards infinite;
   }
+
+  .lg\:animate-twist {
+    -webkit-animation: twist 2s infinite;
+            animation: twist 2s infinite;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -61668,5 +61716,10 @@ video {
   .xl\:animate-grow-delayed {
     -webkit-animation: grow 30s 7s backwards infinite;
             animation: grow 30s 7s backwards infinite;
+  }
+
+  .xl\:animate-twist {
+    -webkit-animation: twist 2s infinite;
+            animation: twist 2s infinite;
   }
 }

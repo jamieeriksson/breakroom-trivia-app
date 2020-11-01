@@ -64,6 +64,11 @@ module.exports = {
           "50%": { opacity: "5%" },
           "100%": { opacity: 0, transform: "scale(1, 1)" },
         },
+        twist: {
+          "0%": { transform: "rotate(12deg)" },
+          "50%": { transform: "rotate(-12deg)" },
+          "100%": { transform: "rotate(12deg)" },
+        },
       },
       animation: {
         timer: "roundtime 90s steps(1000, end) forwards",
@@ -71,6 +76,7 @@ module.exports = {
         "grow-normal": "grow 30s -2s backwards infinite",
         "grow-less-delayed": "grow 30s 5s backwards infinite",
         "grow-delayed": "grow 30s 7s backwards infinite",
+        twist: "twist 2s infinite",
       },
       fontSize: {
         "7xl": "5rem",
