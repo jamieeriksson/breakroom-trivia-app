@@ -305,7 +305,7 @@ class TriviaQuiz extends React.Component {
     } else {
       return (
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
-          <Header />
+          <Header fromQuizView={true} />
           <QuestionBg className="z-0" />
           <div className="z-10 max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
             <p className="font-cursive text-2xl">
