@@ -140,7 +140,7 @@ class TriviaQuiz extends React.Component {
       console.log(error);
       this.setState({
         isLoaded: true,
-        error,
+        error: error,
       });
     }
   }

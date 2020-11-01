@@ -111,5 +111,5 @@ module.exports = {
     filter: ["responsive"], // defaults to ['responsive']
     backdropFilter: ["responsive"], // defaults to ['responsive']
   },
-  plugins: [require("tailwindcss-filters")],
+  plugins: [require("tailwindcss-filters"), require("tailwind-scrollbar")],
 };

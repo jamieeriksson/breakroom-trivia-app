@@ -14,7 +14,7 @@ class LandingView extends React.Component {
             <h1 className="font-cursive text-6xl -mb-10">Breakroom</h1>
             <h1 className="font-capital text-8xl">Trivia</h1>
             <Link
-              to="/play"
+              to="/start"
               className="pl-4 pr-3 py-1 bg-red font-cursive text-2xl text-white rounded-md focus:outline-none"
             >
               Enter
