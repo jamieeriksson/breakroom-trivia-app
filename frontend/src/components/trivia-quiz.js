@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import QuestionBg from "./question-bg.js";
+import Header from "./header.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -303,7 +305,9 @@ class TriviaQuiz extends React.Component {
     } else {
       return (
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
-          <div className="max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
+          <Header />
+          <QuestionBg className="z-0" />
+          <div className="z-10 max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
             <p className="font-cursive text-2xl">
               Question {askedQuestionIds.length}/{quizLength}
             </p>
