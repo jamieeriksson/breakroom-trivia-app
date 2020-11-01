@@ -11,7 +11,7 @@ class ScoreView extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.location.score) {
+    if (this.props.location.state) {
       const { score } = this.props.location.state;
 
       this.setState({
