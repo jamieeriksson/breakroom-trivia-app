@@ -68,7 +68,7 @@ class Timer extends React.Component {
   }
 
   render() {
-    const { minutes, seconds } = this.props;
+    const { minutes, seconds, answerIsSubmit } = this.props;
     const duration = minutes * 60 + seconds;
 
     return (
@@ -78,7 +78,11 @@ class Timer extends React.Component {
         </p>
         <div className="relative h-4 w-full">
           <div className="absolute bg-white shadow-md h-4 w-full"></div>
-          <div className="absolute bg-blue-dark h-4 w-full animate-timer origin-left"></div>
+          <div
+            className={`absolute bg-blue-dark h-4 w-full ${
+              answerIsSubmit ? "scale-x-1" : "animate-timer"
+            } origin-left`}
+          ></div>
         </div>
       </div>
     );
@@ -309,6 +313,7 @@ class TriviaQuiz extends React.Component {
                 tick={this.tick}
                 minutes={minutes}
                 seconds={seconds}
+                answerIsSubmit={answerIsSubmit}
               />
             </div>
             <div className="font-sans w-full mt-10">
