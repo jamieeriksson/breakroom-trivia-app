@@ -1,6 +1,61 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+class TriviaAnswer extends React.Component {
+  render() {
+    const answer = this.props.answer;
+    const correctAnswer = this.props.correctAnswer;
+    const selectedAnswer = this.props.selectedAnswer;
+    const answerIsSubmit = this.props.answerIsSubmit;
+
+    if (answer == correctAnswer) {
+      return (
+        <label className="text-2xl flex place-items-center">
+          <input
+            name="triviaAnswer"
+            type="radio"
+            id={answer}
+            value={answer}
+            checked={selectedAnswer === answer}
+            onChange={this.props.handleChange}
+            className="mr-4"
+          />
+          <span>{answer}</span>
+          <FontAwesomeIcon
+            icon={faCheck}
+            size="2x"
+            color="#26AC1B"
+            className={`ml-6 ${answerIsSubmit ? "inline" : "hidden"}`}
+          />
+        </label>
+      );
+    } else {
+      return (
+        <label className="text-2xl flex place-items-center">
+          <input
+            name="triviaAnswer"
+            type="radio"
+            id={answer}
+            value={answer}
+            checked={selectedAnswer === answer}
+            onChange={this.props.handleChange}
+            className="mr-4"
+          />
+          <span>{answer}</span>
+          <FontAwesomeIcon
+            icon={faTimes}
+            size="2x"
+            color="#CF5C36"
+            className={`ml-6 ${answerIsSubmit ? "inline" : "hidden"}`}
+          />
+        </label>
+      );
+    }
+  }
+}
 
 class TriviaQuiz extends React.Component {
   constructor(props) {
@@ -132,7 +187,9 @@ class TriviaQuiz extends React.Component {
       currentAnswers,
       answerIsSubmit,
       submitMessage,
+      correctAnswer,
     } = this.state;
+
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
@@ -152,18 +209,13 @@ class TriviaQuiz extends React.Component {
               <form className="flex flex-col">
                 <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-cols-2 grid-rows-2 gap-6">
                   {currentAnswers.map((answer) => (
-                    <label className="text-2xl">
-                      <input
-                        name="triviaAnswer"
-                        type="radio"
-                        id={answer}
-                        value={answer}
-                        checked={this.state.selectedAnswer === answer}
-                        onChange={this.handleChange}
-                        className="mr-4"
-                      />
-                      {answer}
-                    </label>
+                    <TriviaAnswer
+                      answer={answer}
+                      correctAnswer={correctAnswer}
+                      selectedAnswer={this.state.selectedAnswer}
+                      handleChange={this.handleChange}
+                      answerIsSubmit={answerIsSubmit}
+                    />
                   ))}
                 </div>
                 <p
