@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./header.js";
 import QuestionBg from "./question-bg.js";
+import ErrorView from "./error-view.js";
+import LoadingView from "./loading-view.js";
 
 class ScoreView extends React.Component {
   constructor(props) {
@@ -55,31 +57,9 @@ class ScoreView extends React.Component {
     const { error, isLoaded, triviaQuestions, isQuestionListOpen } = this.state;
 
     if (error) {
-      return (
-        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
-          <Header fromQuizView={false} />
-          <QuestionBg className="z-0" />
-          <div className="flex-grow flex justify-center place-items-center w-screen">
-            <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-              <p className="text-xl md:text-3xl text-center">
-                An error occured: {error.message}
-              </p>
-            </div>
-          </div>
-        </div>
-      );
+      return <ErrorView fromQuizView={false} error={error} />;
     } else if (!isLoaded) {
-      return (
-        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
-          <Header fromQuizView={false} />
-          <QuestionBg className="z-0" />
-          <div className="flex-grow flex justify-center place-items-center w-screen">
-            <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-              <p className="text-xl md:text-3xl text-center">Loading...</p>
-            </div>
-          </div>
-        </div>
-      );
+      return <LoadingView fromQuizView={false} />;
     } else {
       return (
         <div className="bg-blue-light w-screen min-h-screen flex flex-col">

@@ -1,103 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import QuestionBg from "./question-bg.js";
-import Header from "./header.js";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-
-class TriviaAnswer extends React.Component {
-  render() {
-    const answer = this.props.answer;
-    const correctAnswer = this.props.correctAnswer;
-    const selectedAnswer = this.props.selectedAnswer;
-    const answerIsSubmit = this.props.answerIsSubmit;
-
-    if (answer == correctAnswer) {
-      return (
-        <div>
-          <label className="text-lg md:text-2xl flex flex-wrap place-items-center">
-            <div>
-              <input
-                name="triviaAnswer"
-                type="radio"
-                id={answer}
-                value={answer}
-                checked={selectedAnswer === answer}
-                onChange={this.props.handleChange}
-                className="mr-4"
-              />
-              <span>{answer}</span>
-            </div>
-            <FontAwesomeIcon
-              icon={faCheck}
-              size="2x"
-              color="#26AC1B"
-              className={`ml-6 ${answerIsSubmit ? "inline" : "hidden"}`}
-            />
-          </label>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <label className="text-lg md:text-2xl flex flex-wrap place-items-center">
-            <div>
-              <input
-                name="triviaAnswer"
-                type="radio"
-                id={answer}
-                value={answer}
-                checked={selectedAnswer === answer}
-                onChange={this.props.handleChange}
-                className="mr-4"
-              />
-              <span>{answer}</span>
-            </div>
-            <FontAwesomeIcon
-              icon={faTimes}
-              size="2x"
-              color="#CF5C36"
-              className={`ml-6 ${answerIsSubmit ? "inline" : "hidden"}`}
-            />
-          </label>
-        </div>
-      );
-    }
-  }
-}
-
-class Timer extends React.Component {
-  componentDidMount() {
-    this.timerID = setInterval(() => this.props.tick(), 1000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  render() {
-    const { minutes, seconds, answerIsSubmit } = this.props;
-    const duration = minutes * 60 + seconds;
-
-    return (
-      <div className="flex flex-col">
-        <p className="self-center md:self-end font-cursive text-xl md:text-2xl">
-          Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-        </p>
-        <div className="relative h-4 w-full">
-          <div className="absolute bg-white shadow-md h-4 w-full"></div>
-          <div
-            className={`absolute bg-blue-dark h-4 w-full ${
-              answerIsSubmit ? "scale-x-1" : "animate-timer"
-            } origin-left`}
-          ></div>
-        </div>
-      </div>
-    );
-  }
-}
+import Header from "../header.js";
+import QuestionBg from "../question-bg.js";
+import ErrorView from "../error-view.js";
+import LoadingView from "../loading-view.js";
+import TriviaAnswer from "./trivia-answer.js";
+import Timer from "./timer.js";
+import { SubmitMessage, TriviaFooter } from "./trivia-footer.js";
 
 class TriviaQuiz extends React.Component {
   constructor(props) {
@@ -176,13 +84,11 @@ class TriviaQuiz extends React.Component {
 
     do {
       newQuestion = triviaItems[Math.floor(Math.random() * triviaItems.length)];
-      console.log(newQuestion);
     } while (askedQuestionIds.includes(newQuestion.id));
 
     askedQuestionIds = askedQuestionIds.concat(newQuestion.id);
     newAnswers = newQuestion.incorrect;
     newAnswers = newAnswers.concat(newQuestion.correct);
-    console.log(newAnswers);
 
     // Randomize answer order with Fisher-Yates Algorithm
     for (let i = newAnswers.length - 1; i > 0; i--) {
@@ -309,8 +215,9 @@ class TriviaQuiz extends React.Component {
       currentQuestion,
       currentAnswers,
       answerIsSubmit,
-      submitMessage,
+      selectedAnswer,
       correctAnswer,
+      submitMessage,
       minutes,
       seconds,
       totalPoints,
@@ -318,31 +225,9 @@ class TriviaQuiz extends React.Component {
     } = this.state;
 
     if (error) {
-      return (
-        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
-          <Header fromQuizView={true} />
-          <QuestionBg className="z-0" />
-          <div className="flex-grow flex justify-center place-items-center w-screen">
-            <div className="static z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-              <p className="text-xl md:text-3xl text-center">
-                An error occured: {error.message}
-              </p>
-            </div>
-          </div>
-        </div>
-      );
+      return <ErrorView fromQuizView={true} error={error} />;
     } else if (!isLoaded) {
-      return (
-        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
-          <Header fromQuizView={true} />
-          <QuestionBg className="z-0" />
-          <div className="flex-grow flex justify-center place-items-center w-screen">
-            <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-              <p className="text-xl md:text-3xl text-center">Loading...</p>
-            </div>
-          </div>
-        </div>
-      );
+      return <LoadingView fromQuizView={true} />;
     } else {
       return (
         <div className="bg-blue-light w-screen min-h-screen flex flex-col">
@@ -378,57 +263,19 @@ class TriviaQuiz extends React.Component {
                       />
                     ))}
                   </div>
-                  <p
-                    className={`self-center font-cursive text-center text-lg md:text-2xl ${
-                      this.state.selectedAnswer == this.state.correctAnswer
-                        ? "text-green"
-                        : "text-red"
-                    }`}
-                  >
-                    {submitMessage}
-                  </p>
-                  <div className="flex flex-col md:flex-row w-full mt-4 md:mt-0 justify-start place-items-center">
-                    <p className="order-2 md:order-1 mt-4 md:mt-0 font-cursive text-center text-xl md:text-2xl">
-                      Total Points: {totalPoints}
-                    </p>
-                    <div className="order-2 flex-grow hidden md:block"> </div>
-                    <input
-                      type="submit"
-                      value="Submit Answer"
-                      onClick={this.handleSubmit}
-                      className={`order-1 md:order-3 px-2 md:px-4 py-1 bg-red font-capital text-xl md:text-2xl text-white rounded-md ${
-                        answerIsSubmit ? "hidden" : "block"
-                      } focus:outline-none`}
-                    />
-                    <button
-                      onClick={this.handleNextQuestionClick}
-                      className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
-                        answerIsSubmit && askedQuestionIds.length != quizLength
-                          ? "block"
-                          : "hidden"
-                      } focus:outline-none`}
-                    >
-                      Next Question
-                      <FontAwesomeIcon
-                        icon={faArrowRight}
-                        color="#FBFBFF"
-                        className="ml-2"
-                      />
-                    </button>
-                    <Link
-                      to={{
-                        pathname: "/score",
-                        state: { score: totalPoints },
-                      }}
-                      className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
-                        answerIsSubmit && askedQuestionIds.length == quizLength
-                          ? "block"
-                          : "hidden"
-                      } focus:outline-none`}
-                    >
-                      End Quiz
-                    </Link>
-                  </div>
+                  <SubmitMessage
+                    selectedAnswer={selectedAnswer}
+                    correctAnswer={correctAnswer}
+                    submitMessage={submitMessage}
+                  />
+                  <TriviaFooter
+                    totalPoints={totalPoints}
+                    handleSubmit={this.handleSubmit}
+                    answerIsSubmit={answerIsSubmit}
+                    handleNextQuestionClick={this.handleNextQuestionClick}
+                    askedQuestionIds={askedQuestionIds}
+                    quizLength={quizLength}
+                  />
                 </form>
               </div>
             </div>
