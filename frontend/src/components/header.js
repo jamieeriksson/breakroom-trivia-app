@@ -41,10 +41,20 @@ class Header extends React.Component {
           <div className="flex-grow"></div>
           <button
             onClick={this.toggleAlert}
-            className="pl-4 pr-3 py-1 mr-12 bg-blue-dark opacity-75 font-cursive text-xl text-white rounded-md focus:outline-none hover:opacity-100"
+            className={`${
+              this.props.fromQuizView ? "block" : "hidden"
+            } pl-4 pr-3 py-1 mr-12 bg-blue-dark opacity-75 font-cursive text-xl text-white rounded-md focus:outline-none hover:opacity-100`}
           >
             Back to home
           </button>
+          <Link
+            to="/"
+            className={`${
+              this.props.fromQuizView ? "hidden" : "block"
+            } pl-4 pr-3 py-1 mr-12 bg-blue-dark opacity-75 font-cursive text-xl text-white rounded-md focus:outline-none hover:opacity-100`}
+          >
+            Back to home
+          </Link>
         </header>
         <div className={`${alertIsOpen ? "absolute inset-0" : "hidden"}`}>
           <div className="z-30 absolute inset-0 w-screen h-screen bg-blue-dark opacity-50 backdrop-blur"></div>
