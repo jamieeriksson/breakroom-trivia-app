@@ -47,7 +47,7 @@ module.exports = {
         },
       },
       animation: {
-        timer: "roundtime 10s steps(1000, end) forwards",
+        timer: "roundtime 90s steps(1000, end) forwards",
       },
     },
   },

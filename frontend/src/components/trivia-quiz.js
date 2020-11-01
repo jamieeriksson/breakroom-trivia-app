@@ -98,8 +98,8 @@ class TriviaQuiz extends React.Component {
       selectedAnswer: "",
       answerIsSubmit: false,
       submitMessage: "",
-      minutes: 0,
-      seconds: 10,
+      minutes: 1,
+      seconds: 30,
       totalPoints: 0,
     };
 
@@ -180,8 +180,8 @@ class TriviaQuiz extends React.Component {
     this.getNewTriviaQuestion();
     this.setState({
       answerIsSubmit: false,
-      minutes: 0,
-      seconds: 10,
+      minutes: 1,
+      seconds: 30,
     });
   }
 

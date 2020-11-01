@@ -11449,8 +11449,8 @@ video {
 }
 
 .animate-timer {
-  -webkit-animation: roundtime 10s steps(1000, end) forwards;
-          animation: roundtime 10s steps(1000, end) forwards;
+  -webkit-animation: roundtime 90s steps(1000, end) forwards;
+          animation: roundtime 90s steps(1000, end) forwards;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
@@ -22233,8 +22233,8 @@ video {
   }
 
   .sm\:animate-timer {
-    -webkit-animation: roundtime 10s steps(1000, end) forwards;
-            animation: roundtime 10s steps(1000, end) forwards;
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
   }
 }
 
@@ -33012,8 +33012,8 @@ video {
   }
 
   .md\:animate-timer {
-    -webkit-animation: roundtime 10s steps(1000, end) forwards;
-            animation: roundtime 10s steps(1000, end) forwards;
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
   }
 }
 
@@ -43791,8 +43791,8 @@ video {
   }
 
   .lg\:animate-timer {
-    -webkit-animation: roundtime 10s steps(1000, end) forwards;
-            animation: roundtime 10s steps(1000, end) forwards;
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
   }
 }
 
@@ -54570,7 +54570,7 @@ video {
   }
 
   .xl\:animate-timer {
-    -webkit-animation: roundtime 10s steps(1000, end) forwards;
-            animation: roundtime 10s steps(1000, end) forwards;
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
   }
 }
