@@ -58,46 +58,16 @@ class TriviaAnswer extends React.Component {
 }
 
 class Timer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      minutes: 0,
-      seconds: 10,
-    };
-
-    this.tick = this.tick.bind(this);
-  }
-
   componentDidMount() {
-    this.timerID = setInterval(() => this.tick(), 1000);
+    this.timerID = setInterval(() => this.props.tick(), 1000);
   }
 
   componentWillUnmount() {
     clearInterval(this.timerID);
   }
 
-  tick() {
-    let { minutes, seconds } = this.state;
-
-    if (minutes === 0 && seconds === 0) {
-      this.props.handleTimerEnd();
-      clearInterval(this.timerID);
-    } else if (seconds === 0) {
-      seconds = 59;
-      minutes = minutes - 1;
-    } else {
-      seconds = seconds - 1;
-    }
-
-    this.setState({
-      minutes: minutes,
-      seconds: seconds,
-    });
-  }
-
   render() {
-    const { minutes, seconds } = this.state;
+    const { minutes, seconds } = this.props;
     return (
       <div className="flex flex-col">
         <p className="self-end font-cursive text-2xl">
@@ -123,6 +93,8 @@ class TriviaQuiz extends React.Component {
       selectedAnswer: "",
       answerIsSubmit: false,
       submitMessage: "",
+      minutes: 0,
+      seconds: 10,
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
@@ -130,10 +102,13 @@ class TriviaQuiz extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleTimerEnd = this.handleTimerEnd.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
   async componentDidMount() {
     this._isMounted = true;
+    this.questionMinutes = 0;
+    this.questionSeconds = 10;
 
     try {
       const response = await fetch("http://localhost:4444/quiz");
@@ -192,6 +167,7 @@ class TriviaQuiz extends React.Component {
       correctAnswer: newQuestion.correct,
       submitMessage: "",
       selectedAnswer: "",
+      resetTimer: true,
     });
   }
 
@@ -200,6 +176,8 @@ class TriviaQuiz extends React.Component {
     this.getNewTriviaQuestion();
     this.setState({
       answerIsSubmit: false,
+      minutes: this.questionMinutes,
+      seconds: this.questionSeconds,
     });
   }
 
@@ -231,10 +209,30 @@ class TriviaQuiz extends React.Component {
     }
   }
 
+  // Timer methods
   handleTimerEnd() {
     this.setState({
       submitMessage: "Your time ran out to answer.",
       answerIsSubmit: true,
+    });
+  }
+
+  tick() {
+    let minutes = this.state.minutes;
+    let seconds = this.state.seconds;
+
+    if (minutes === 0 && seconds === 0) {
+      this.handleTimerEnd();
+    } else if (seconds === 0) {
+      seconds = 59;
+      minutes = minutes - 1;
+    } else {
+      seconds = seconds - 1;
+    }
+
+    this.setState({
+      minutes: minutes,
+      seconds: seconds,
     });
   }
 
@@ -249,6 +247,8 @@ class TriviaQuiz extends React.Component {
       answerIsSubmit,
       submitMessage,
       correctAnswer,
+      minutes,
+      seconds,
     } = this.state;
 
     if (error) {
@@ -263,7 +263,12 @@ class TriviaQuiz extends React.Component {
               Question {askedQuestionIds.length}/{triviaItems.length}
             </p>
             <div>
-              <Timer handleTimerEnd={this.handleTimerEnd} />
+              <Timer
+                handleTimerEnd={this.handleTimerEnd}
+                tick={this.tick}
+                minutes={minutes}
+                seconds={seconds}
+              />
             </div>
             <div className="font-sans w-full mt-10">
               <h2 className="text-3xl text-center">{currentQuestion}</h2>
