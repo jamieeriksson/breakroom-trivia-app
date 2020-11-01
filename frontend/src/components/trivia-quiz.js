@@ -91,8 +91,10 @@ class TriviaQuiz extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      quizLength: 2,
       triviaItems: [],
+      quizLength: 10,
+      minutes: 1,
+      seconds: 30,
       askedQuestionIds: [],
       currentQuestion: "",
       currentAnswers: [],
@@ -100,8 +102,7 @@ class TriviaQuiz extends React.Component {
       selectedAnswer: "",
       answerIsSubmit: false,
       submitMessage: "",
-      minutes: 1,
-      seconds: 30,
+      quizResults: [],
       totalPoints: 0,
     };
 
@@ -186,28 +187,42 @@ class TriviaQuiz extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const currentQuestion = this.state.currentQuestion;
     const selectedAnswer = this.state.selectedAnswer;
     const correctAnswer = this.state.correctAnswer;
     const totalPoints = this.state.totalPoints;
+    let oldQuizResults = this.state.quizResults;
 
     if (!selectedAnswer) {
       this.setState({
         submitMessage: "Please select an answer before submitting.",
       });
     } else if (selectedAnswer == correctAnswer) {
+      const updatedQuizResults = oldQuizResults.concat({
+        question: currentQuestion,
+        correctlyAnswered: true,
+      });
+
       this.setState({
         submitMessage: "You answered correctly!",
         answerIsSubmit: true,
         minutes: 0,
         seconds: 0,
         totalPoints: totalPoints + 10,
+        quizResults: updatedQuizResults,
       });
     } else if (selectedAnswer != correctAnswer) {
+      const updatedQuizResults = oldQuizResults.concat({
+        question: currentQuestion,
+        correctlyAnswered: false,
+      });
+
       this.setState({
         submitMessage: "You answered incorrectly.",
         answerIsSubmit: true,
         minutes: 0,
         seconds: 0,
+        quizResults: updatedQuizResults,
       });
     }
   }
@@ -274,6 +289,7 @@ class TriviaQuiz extends React.Component {
       minutes,
       seconds,
       totalPoints,
+      quizResults,
     } = this.state;
 
     if (error) {
@@ -346,7 +362,10 @@ class TriviaQuiz extends React.Component {
                     />
                   </button>
                   <Link
-                    to={{ pathname: "/score", state: { score: totalPoints } }}
+                    to={{
+                      pathname: "/score",
+                      state: { score: totalPoints },
+                    }}
                     className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
                       answerIsSubmit && askedQuestionIds.length == quizLength
                         ? "block"
