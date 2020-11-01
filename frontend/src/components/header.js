@@ -63,21 +63,22 @@ class Header extends React.Component {
         <div className={`${alertIsOpen ? "absolute inset-0" : "hidden"}`}>
           <div className="z-30 absolute inset-0 w-screen h-screen bg-blue-dark opacity-50 backdrop-blur"></div>
           <div className="z-40 absolute inset-0 w-screen h-screen flex justify-center place-items-center">
-            <div className="p-16 bg-gray-light rounded-lg flex flex-col justify-center place-items-center">
-              <p className="font-sans text-lg mb-6">
+            <div className="p-6 md:p-16 bg-gray-light mx-4 my-6 rounded-xl flex flex-col justify-center place-items-center">
+              <p className="font-sans text-lg mb-6 text-center">
                 Are you sure you want to exit the quiz? All progress will be
                 lost.
               </p>
-              <div>
+              <div className="flex flex-col md:flex-row w-full justify-center place-items-center">
                 <button
                   onClick={this.toggleAlert}
-                  className="pl-4 pr-3 py-1 mr-24 bg-blue-dark font-cursive text-2xl text-white rounded-md focus:outline-none hover:shadow-md opacity-75 hover:opacity-100"
+                  className="px-2 md:px-4 py-1 mb-6 md:mb-0 bg-blue-dark font-cursive text-xl md:text-2xl text-white rounded-md focus:outline-none hover:shadow-md opacity-75 hover:opacity-100"
                 >
                   Back to quiz
                 </button>
+                <div className="flex-grow"></div>
                 <Link
                   to="/"
-                  className="pl-4 pr-3 py-1 bg-red font-cursive text-2xl text-white rounded-md focus:outline-none hover:shadow-md opacity-75 hover:opacity-100"
+                  className="px-2 md:px-4 py-1 bg-red font-cursive text-xl md:text-2xl text-white rounded-md focus:outline-none hover:shadow-md opacity-75 hover:opacity-100"
                 >
                   Continue
                 </Link>

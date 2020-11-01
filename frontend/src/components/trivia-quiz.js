@@ -319,10 +319,10 @@ class TriviaQuiz extends React.Component {
 
     if (error) {
       return (
-        <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
+        <div className="bg-blue-light w-screen min-h-screen flex justify-center place-items-center">
           <Header fromQuizView={false} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full mx-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
+          <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
             <p className="text-xl md:text-3xl text-center">
               An error occured: {error.message}
             </p>
@@ -331,20 +331,20 @@ class TriviaQuiz extends React.Component {
       );
     } else if (!isLoaded) {
       return (
-        <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
+        <div className="bg-blue-light w-screen min-h-screen flex justify-center place-items-center">
           <Header fromQuizView={false} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full mx-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
+          <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
             <p className="text-xl md:text-3xl text-center">Loading...</p>
           </div>
         </div>
       );
     } else {
       return (
-        <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
+        <div className="bg-blue-light w-screen min-h-screen flex justify-center place-items-center">
           <Header fromQuizView={true} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full mx-6 py-4 px-6 bg-gray-light rounded-xl flex flex-col">
+          <div className="z-10 max-w-6xl w-full mx-6 my-6 py-4 px-6 bg-gray-light rounded-xl flex flex-col">
             <p className="font-cursive text-xl md:text-2xl font-bold self-center md:self-start">
               Question {askedQuestionIds.length}/{quizLength}
             </p>
