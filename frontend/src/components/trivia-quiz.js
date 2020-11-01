@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -91,6 +92,9 @@ class TriviaQuiz extends React.Component {
       error: null,
       isLoaded: false,
       triviaItems: [],
+      quizLength: 10,
+      minutes: 1,
+      seconds: 30,
       askedQuestionIds: [],
       currentQuestion: "",
       currentAnswers: [],
@@ -98,8 +102,7 @@ class TriviaQuiz extends React.Component {
       selectedAnswer: "",
       answerIsSubmit: false,
       submitMessage: "",
-      minutes: 1,
-      seconds: 30,
+      quizResults: [],
       totalPoints: 0,
     };
 
@@ -175,6 +178,56 @@ class TriviaQuiz extends React.Component {
     });
   }
 
+  // Form methods
+  handleChange(e) {
+    this.setState({
+      selectedAnswer: e.target.value,
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const currentQuestion = this.state.currentQuestion;
+    const selectedAnswer = this.state.selectedAnswer;
+    const correctAnswer = this.state.correctAnswer;
+    const totalPoints = this.state.totalPoints;
+    let oldQuizResults = this.state.quizResults;
+
+    if (!selectedAnswer) {
+      this.setState({
+        submitMessage: "Please select an answer before submitting.",
+      });
+    } else if (selectedAnswer == correctAnswer) {
+      const updatedQuizResults = oldQuizResults.concat({
+        question: currentQuestion,
+        correctlyAnswered: true,
+      });
+
+      this.setState({
+        submitMessage: "You answered correctly!",
+        answerIsSubmit: true,
+        minutes: 0,
+        seconds: 0,
+        totalPoints: totalPoints + 10,
+        quizResults: updatedQuizResults,
+      });
+    } else if (selectedAnswer != correctAnswer) {
+      const updatedQuizResults = oldQuizResults.concat({
+        question: currentQuestion,
+        correctlyAnswered: false,
+      });
+
+      this.setState({
+        submitMessage: "You answered incorrectly.",
+        answerIsSubmit: true,
+        minutes: 0,
+        seconds: 0,
+        quizResults: updatedQuizResults,
+      });
+    }
+  }
+
+  // Button click methods
   handleNextQuestionClick(e) {
     e.preventDefault();
     this.getNewTriviaQuestion();
@@ -185,38 +238,8 @@ class TriviaQuiz extends React.Component {
     });
   }
 
-  handleChange(e) {
-    this.setState({
-      selectedAnswer: e.target.value,
-    });
-  }
-
-  handleSubmit(e) {
+  handleEndQuizClick(e) {
     e.preventDefault();
-    const selectedAnswer = this.state.selectedAnswer;
-    const correctAnswer = this.state.correctAnswer;
-    const totalPoints = this.state.totalPoints;
-
-    if (!selectedAnswer) {
-      this.setState({
-        submitMessage: "Please select an answer before submitting.",
-      });
-    } else if (selectedAnswer == correctAnswer) {
-      this.setState({
-        submitMessage: "You answered correctly!",
-        answerIsSubmit: true,
-        minutes: 0,
-        seconds: 0,
-        totalPoints: totalPoints + 10,
-      });
-    } else if (selectedAnswer != correctAnswer) {
-      this.setState({
-        submitMessage: "You answered incorrectly.",
-        answerIsSubmit: true,
-        minutes: 0,
-        seconds: 0,
-      });
-    }
   }
 
   // Timer methods
@@ -256,7 +279,7 @@ class TriviaQuiz extends React.Component {
     const {
       error,
       isLoaded,
-      triviaItems,
+      quizLength,
       askedQuestionIds,
       currentQuestion,
       currentAnswers,
@@ -266,6 +289,7 @@ class TriviaQuiz extends React.Component {
       minutes,
       seconds,
       totalPoints,
+      quizResults,
     } = this.state;
 
     if (error) {
@@ -277,7 +301,7 @@ class TriviaQuiz extends React.Component {
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
           <div className="max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
             <p className="font-cursive text-2xl">
-              Question {askedQuestionIds.length}/{triviaItems.length}
+              Question {askedQuestionIds.length}/{quizLength}
             </p>
             <div>
               <Timer
@@ -325,7 +349,9 @@ class TriviaQuiz extends React.Component {
                   <button
                     onClick={this.handleNextQuestionClick}
                     className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
-                      answerIsSubmit ? "block" : "hidden"
+                      answerIsSubmit && askedQuestionIds.length != quizLength
+                        ? "block"
+                        : "hidden"
                     } focus:outline-none`}
                   >
                     Next Question
@@ -335,6 +361,19 @@ class TriviaQuiz extends React.Component {
                       className="ml-2"
                     />
                   </button>
+                  <Link
+                    to={{
+                      pathname: "/score",
+                      state: { score: totalPoints },
+                    }}
+                    className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
+                      answerIsSubmit && askedQuestionIds.length == quizLength
+                        ? "block"
+                        : "hidden"
+                    } focus:outline-none`}
+                  >
+                    End Quiz
+                  </Link>
                 </div>
               </form>
             </div>
