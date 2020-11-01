@@ -68,12 +68,17 @@ class Timer extends React.Component {
 
   render() {
     const { minutes, seconds } = this.props;
+    const duration = minutes * 60 + seconds;
+
     return (
       <div className="flex flex-col">
         <p className="self-end font-cursive text-2xl">
           Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
         </p>
-        <div className="bg-white shadow-md h-4 w-full"></div>
+        <div className="relative h-4 w-full">
+          <div className="absolute bg-white shadow-md h-4 w-full"></div>
+          <div className="absolute bg-blue-dark h-4 w-full animate-timer origin-left"></div>
+        </div>
       </div>
     );
   }

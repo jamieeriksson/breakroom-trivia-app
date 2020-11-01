@@ -40,6 +40,15 @@ module.exports = {
       borderRadius: {
         xl: "25px",
       },
+      keyframes: {
+        roundtime: {
+          "0%": { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
+      },
+      animation: {
+        timer: "roundtime 10s steps(1000, end) forwards",
+      },
     },
   },
   variants: {},
