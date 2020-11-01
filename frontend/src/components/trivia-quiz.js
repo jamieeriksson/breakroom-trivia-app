@@ -121,27 +121,38 @@ class TriviaQuiz extends React.Component {
   }
 
   async componentDidMount() {
-    this._isMounted = true;
+    if (this.props.location.state) {
+      const { triviaItems } = await this.props.location.state;
 
-    try {
-      const response = await fetch("http://localhost:4444/quiz");
-      if (!response.ok) {
-        throw Error(response.statusText);
-      }
-      const json = await response.json();
-      if (this._isMounted) {
+      this.setState({
+        triviaItems: triviaItems,
+        isLoaded: true,
+      });
+
+      this.getNewTriviaQuestion();
+    } else {
+      this._isMounted = true;
+
+      try {
+        const response = await fetch("http://localhost:4444/quiz");
+        if (!response.ok) {
+          throw Error(response.statusText);
+        }
+        const json = await response.json();
+        if (this._isMounted) {
+          this.setState({
+            isLoaded: true,
+            triviaItems: json.items,
+          });
+          this.getNewTriviaQuestion();
+        }
+      } catch (error) {
+        console.log(error);
         this.setState({
           isLoaded: true,
-          triviaItems: json.items,
+          error: error,
         });
-        this.getNewTriviaQuestion();
       }
-    } catch (error) {
-      console.log(error);
-      this.setState({
-        isLoaded: true,
-        error: error,
-      });
     }
   }
 

@@ -74,7 +74,10 @@ class ScoreView extends React.Component {
                   : "View Trivia Questions"}
               </button>
               <Link
-                to="/play"
+                to={{
+                  pathname: "/play",
+                  state: { triviaItems: triviaQuestions },
+                }}
                 className="pl-4 pr-3 py-1 bg-red font-cursive text-2xl text-white rounded-md focus:outline-none hover:shadow-md hover:font-bold"
               >
                 Start Trivia Quiz
@@ -87,7 +90,10 @@ class ScoreView extends React.Component {
             >
               <ul>
                 {triviaQuestions.map((item) => (
-                  <li className="py-1 px-4 mr-6 border-blue-light border-b">
+                  <li
+                    key={item.question}
+                    className="py-1 px-4 mr-6 border-blue-light border-b"
+                  >
                     {item.question}
                   </li>
                 ))}
