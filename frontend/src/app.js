@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import TriviaQuiz from "./components/trivia-quiz.js";
+import ScoreView from "./components/score-view.js";
 
 class App extends React.Component {
   render() {
@@ -8,8 +9,8 @@ class App extends React.Component {
       <Router>
         <Switch>
           <Route path="/" exact component={TriviaQuiz} />
+          <Route path="/score" component={ScoreView} />
           {/* <Route path="/" exact component={LandingView} /> */}
-          {/* <Route path="/add" component={FormView} /> */}
           {/* <Route path="/play" component={TriviaQuiz} /> */}
           {/* <Route component={LandingView} /> */}
         </Switch>

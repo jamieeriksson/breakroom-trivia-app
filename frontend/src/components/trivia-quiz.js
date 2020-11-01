@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
@@ -90,6 +91,7 @@ class TriviaQuiz extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
+      quizLength: 2,
       triviaItems: [],
       askedQuestionIds: [],
       currentQuestion: "",
@@ -175,16 +177,7 @@ class TriviaQuiz extends React.Component {
     });
   }
 
-  handleNextQuestionClick(e) {
-    e.preventDefault();
-    this.getNewTriviaQuestion();
-    this.setState({
-      answerIsSubmit: false,
-      minutes: 1,
-      seconds: 30,
-    });
-  }
-
+  // Form methods
   handleChange(e) {
     this.setState({
       selectedAnswer: e.target.value,
@@ -217,6 +210,21 @@ class TriviaQuiz extends React.Component {
         seconds: 0,
       });
     }
+  }
+
+  // Button click methods
+  handleNextQuestionClick(e) {
+    e.preventDefault();
+    this.getNewTriviaQuestion();
+    this.setState({
+      answerIsSubmit: false,
+      minutes: 1,
+      seconds: 30,
+    });
+  }
+
+  handleEndQuizClick(e) {
+    e.preventDefault();
   }
 
   // Timer methods
@@ -256,7 +264,7 @@ class TriviaQuiz extends React.Component {
     const {
       error,
       isLoaded,
-      triviaItems,
+      quizLength,
       askedQuestionIds,
       currentQuestion,
       currentAnswers,
@@ -277,7 +285,7 @@ class TriviaQuiz extends React.Component {
         <div className="bg-blue-light w-screen h-screen flex justify-center place-items-center">
           <div className="max-w-6xl w-full py-4 px-6 bg-gray-light rounded-xl flex flex-col">
             <p className="font-cursive text-2xl">
-              Question {askedQuestionIds.length}/{triviaItems.length}
+              Question {askedQuestionIds.length}/{quizLength}
             </p>
             <div>
               <Timer
@@ -325,7 +333,9 @@ class TriviaQuiz extends React.Component {
                   <button
                     onClick={this.handleNextQuestionClick}
                     className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
-                      answerIsSubmit ? "block" : "hidden"
+                      answerIsSubmit && askedQuestionIds.length != quizLength
+                        ? "block"
+                        : "hidden"
                     } focus:outline-none`}
                   >
                     Next Question
@@ -335,6 +345,16 @@ class TriviaQuiz extends React.Component {
                       className="ml-2"
                     />
                   </button>
+                  <Link
+                    to={{ pathname: "/score", state: { score: totalPoints } }}
+                    className={`pl-4 pr-3 py-1  bg-blue-dark font-capital text-2xl text-white rounded-md ${
+                      answerIsSubmit && askedQuestionIds.length == quizLength
+                        ? "block"
+                        : "hidden"
+                    } focus:outline-none`}
+                  >
+                    End Quiz
+                  </Link>
                 </div>
               </form>
             </div>
