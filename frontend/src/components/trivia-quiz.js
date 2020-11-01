@@ -57,6 +57,33 @@ class TriviaAnswer extends React.Component {
   }
 }
 
+class Timer extends React.Component {
+  componentDidMount() {
+    this.timerID = setInterval(() => this.props.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  render() {
+    const { minutes, seconds } = this.props;
+    const duration = minutes * 60 + seconds;
+
+    return (
+      <div className="flex flex-col">
+        <p className="self-end font-cursive text-2xl">
+          Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        </p>
+        <div className="relative h-4 w-full">
+          <div className="absolute bg-white shadow-md h-4 w-full"></div>
+          <div className="absolute bg-blue-dark h-4 w-full animate-timer origin-left"></div>
+        </div>
+      </div>
+    );
+  }
+}
+
 class TriviaQuiz extends React.Component {
   constructor(props) {
     super(props);
@@ -71,12 +98,17 @@ class TriviaQuiz extends React.Component {
       selectedAnswer: "",
       answerIsSubmit: false,
       submitMessage: "",
+      minutes: 1,
+      seconds: 30,
+      totalPoints: 0,
     };
 
     this.getNewTriviaQuestion = this.getNewTriviaQuestion.bind(this);
     this.handleNextQuestionClick = this.handleNextQuestionClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleTimerEnd = this.handleTimerEnd.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
   async componentDidMount() {
@@ -139,6 +171,7 @@ class TriviaQuiz extends React.Component {
       correctAnswer: newQuestion.correct,
       submitMessage: "",
       selectedAnswer: "",
+      resetTimer: true,
     });
   }
 
@@ -147,6 +180,8 @@ class TriviaQuiz extends React.Component {
     this.getNewTriviaQuestion();
     this.setState({
       answerIsSubmit: false,
+      minutes: 1,
+      seconds: 30,
     });
   }
 
@@ -160,6 +195,8 @@ class TriviaQuiz extends React.Component {
     e.preventDefault();
     const selectedAnswer = this.state.selectedAnswer;
     const correctAnswer = this.state.correctAnswer;
+    const totalPoints = this.state.totalPoints;
+
     if (!selectedAnswer) {
       this.setState({
         submitMessage: "Please select an answer before submitting.",
@@ -168,13 +205,51 @@ class TriviaQuiz extends React.Component {
       this.setState({
         submitMessage: "You answered correctly!",
         answerIsSubmit: true,
+        minutes: 0,
+        seconds: 0,
+        totalPoints: totalPoints + 10,
       });
     } else if (selectedAnswer != correctAnswer) {
       this.setState({
         submitMessage: "You answered incorrectly.",
         answerIsSubmit: true,
+        minutes: 0,
+        seconds: 0,
       });
     }
+  }
+
+  // Timer methods
+  handleTimerEnd() {
+    this.setState({
+      submitMessage: "Your time ran out to answer.",
+      answerIsSubmit: true,
+    });
+  }
+
+  tick() {
+    let minutes = this.state.minutes;
+    let seconds = this.state.seconds;
+    const answerIsSubmit = this.state.answerIsSubmit;
+
+    if (answerIsSubmit === false) {
+      if (minutes === 0 && seconds === 0) {
+        this.handleTimerEnd();
+      } else if (seconds === 0) {
+        seconds = 59;
+        minutes = minutes - 1;
+      } else {
+        seconds = seconds - 1;
+      }
+    } else {
+      minutes = 0;
+      seconds = 0;
+    }
+
+    this.setState({
+      minutes: minutes,
+      seconds: seconds,
+    });
   }
 
   render() {
@@ -188,6 +263,9 @@ class TriviaQuiz extends React.Component {
       answerIsSubmit,
       submitMessage,
       correctAnswer,
+      minutes,
+      seconds,
+      totalPoints,
     } = this.state;
 
     if (error) {
@@ -202,9 +280,14 @@ class TriviaQuiz extends React.Component {
               Question {askedQuestionIds.length}/{triviaItems.length}
             </p>
             <div>
-              <p className="font-cursive text-2xl">Time Remaining: 0:00</p>
+              <Timer
+                handleTimerEnd={this.handleTimerEnd}
+                tick={this.tick}
+                minutes={minutes}
+                seconds={seconds}
+              />
             </div>
-            <div className="font-sans w-full mt-4">
+            <div className="font-sans w-full mt-10">
               <h2 className="text-3xl text-center">{currentQuestion}</h2>
               <form className="flex flex-col">
                 <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-cols-2 grid-rows-2 gap-6">
@@ -229,7 +312,7 @@ class TriviaQuiz extends React.Component {
                 </p>
                 <div className="flex flex-row w-full justify-start">
                   <p className="flex-grow font-cursive text-2xl">
-                    Total Points: 0
+                    Total Points: {totalPoints}
                   </p>
                   <input
                     type="submit"

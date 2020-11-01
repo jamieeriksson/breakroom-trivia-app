@@ -11403,6 +11403,26 @@ video {
   }
 }
 
+@-webkit-keyframes roundtime {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes roundtime {
+  0% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}
+
 .animate-none {
   -webkit-animation: none;
           animation: none;
@@ -11426,6 +11446,11 @@ video {
 .animate-bounce {
   -webkit-animation: bounce 1s infinite;
           animation: bounce 1s infinite;
+}
+
+.animate-timer {
+  -webkit-animation: roundtime 90s steps(1000, end) forwards;
+          animation: roundtime 90s steps(1000, end) forwards;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap');
@@ -22206,6 +22231,11 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .sm\:animate-timer {
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
+  }
 }
 
 @media (min-width: 768px) {
@@ -32979,6 +33009,11 @@ video {
   .md\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .md\:animate-timer {
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
   }
 }
 
@@ -43754,6 +43789,11 @@ video {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
   }
+
+  .lg\:animate-timer {
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -54527,5 +54567,10 @@ video {
   .xl\:animate-bounce {
     -webkit-animation: bounce 1s infinite;
             animation: bounce 1s infinite;
+  }
+
+  .xl\:animate-timer {
+    -webkit-animation: roundtime 90s steps(1000, end) forwards;
+            animation: roundtime 90s steps(1000, end) forwards;
   }
 }
