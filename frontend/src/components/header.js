@@ -25,25 +25,29 @@ class Header extends React.Component {
 
     return (
       <div>
-        <header className="z-20 fixed inset-0 w-screen h-16 pt-4 flex place-items-center">
-          <div className="ml-12 flex flex-col">
-            <h1 className="self-start mr-6 -mb-4 font-cursive text-2xl">
+        <header className="z-20 fixed inset-0 w-screen h-16 pt-2 md:pt-4 flex place-items-center">
+          <div className="ml-2 md:ml-12 flex flex-col">
+            <h1 className="self-start mr-4 md:mr-6 -mb-4 font-cursive text-xl md:text-2xl">
               Breakroom
             </h1>
-            <h1 className="self-end font-capital text-4xl">Trivia</h1>
+            <h1 className="self-end font-capital text-3xl md:text-4xl">
+              Trivia
+            </h1>
           </div>
-          <FontAwesomeIcon
-            icon={faQuestion}
-            size="3x"
-            color="#3626A7"
-            className="-mt-2"
-          />
+          <div className="text-xs md:text-base">
+            <FontAwesomeIcon
+              icon={faQuestion}
+              size="3x"
+              color="#3626A7"
+              className="-mt-2"
+            />
+          </div>
           <div className="flex-grow"></div>
           <button
             onClick={this.toggleAlert}
             className={`${
               this.props.fromQuizView ? "block" : "hidden"
-            } pl-4 pr-3 py-1 mr-12 bg-blue-dark opacity-75 font-cursive text-xl text-white rounded-md focus:outline-none hover:opacity-100`}
+            } px-2 md:px-4 py-1 mr-2 md:mr-12 bg-blue-dark opacity-75 font-cursive md:text-xl text-white rounded-md focus:outline-none hover:opacity-100`}
           >
             Back to home
           </button>
@@ -51,7 +55,7 @@ class Header extends React.Component {
             to="/"
             className={`${
               this.props.fromQuizView ? "hidden" : "block"
-            } pl-4 pr-3 py-1 mr-12 bg-blue-dark opacity-75 font-cursive text-xl text-white rounded-md focus:outline-none hover:opacity-100`}
+            } px-2 md:px-4 py-1 mr-2 md:mr-12 bg-blue-dark opacity-75 font-cursive md:text-xl text-white rounded-md focus:outline-none hover:opacity-100`}
           >
             Back to home
           </Link>
