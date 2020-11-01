@@ -28,20 +28,26 @@ This will install all of the required packages within the `Pipfile` file.
 
 - [SQLAlchemy](https://www.sqlalchemy.org/) and [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/2.x/) are libraries to handle the lightweight sqlite database. Since we want you to focus on auth, we handle the heavy lift for you in `./src/database/models.py`. We recommend skimming this code first so you know how to interface with the Drink model.
 
+#### Envrionment Variables
+
+##### Database Variables
+
+The `config.py` file connects to a database through environmental variables in your virtual environment. In order for the app to connect to a development and test database, run the following code:
+
+```
+pipenv run export DEV_DATABASE_URI="postgresql://<user>:<password>@localhost:<port>/<database_name>"
+pipenv run export TEST_DATABASE_URI="postgresql://<user>:<password>@localhost:<port>/<test_database_name>"
+```
+
 ## Running the server
 
-From within the `./backend` directory first ensure you are working using your created virtual environment.
+The server should run on port 4444. If you run the backend server on a different port, make sure you update any frontend fetch calls to match the new server location.
 
-To run the server, execute:
+To run the server, execute the following while within the `./backend` directory:
 
 ```bash
 pipenv run python wsgi.py
 ```
-
-## Live URL
-
-This API is deployed on Heroku and can be visited at:
-https://fsnd-capstone-ultimate-teams.herokuapp.com/
 
 ## API Behavior
 
