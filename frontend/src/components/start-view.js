@@ -88,13 +88,13 @@ class ScoreView extends React.Component {
                   pathname: "/play",
                   state: { triviaItems: triviaQuestions },
                 }}
-                className="px-4 py-1 mb-6 md:mb-0 bg-red font-cursive text-xl md:text-2xl text-white rounded-md focus:outline-none hover:shadow-md hover:font-bold md:order-2"
+                className="px-3 md:px-4 py-1 mb-6 md:mb-0 bg-red font-cursive text-xl md:text-2xl text-white rounded-md focus:outline-none hover:shadow-md hover:font-bold md:order-2"
               >
                 Start Trivia Quiz
               </Link>
               <button
                 onClick={this.toggleQuestionList}
-                className="px-2 md:px-4 py-1 md:mr-24 bg-blue-dark font-cursive text-xl md:text-2xl text-white rounded-md focus:outline-none hover:shadow-md hover:font-bold md:order-1"
+                className="px-3 md:px-4 py-1 md:mr-24 bg-blue-dark font-cursive text-xl md:text-2xl text-white rounded-md focus:outline-none hover:shadow-md hover:font-bold md:order-1"
               >
                 {isQuestionListOpen
                   ? "Hide Trivia Questions"
