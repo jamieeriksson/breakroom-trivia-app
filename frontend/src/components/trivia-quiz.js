@@ -319,112 +319,118 @@ class TriviaQuiz extends React.Component {
 
     if (error) {
       return (
-        <div className="bg-blue-light w-screen min-h-screen flex justify-center place-items-center">
-          <Header fromQuizView={false} />
+        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
+          <Header fromQuizView={true} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-            <p className="text-xl md:text-3xl text-center">
-              An error occured: {error.message}
-            </p>
+          <div className="flex-grow flex justify-center place-items-center w-screen">
+            <div className="static z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
+              <p className="text-xl md:text-3xl text-center">
+                An error occured: {error.message}
+              </p>
+            </div>
           </div>
         </div>
       );
     } else if (!isLoaded) {
       return (
-        <div className="bg-blue-light w-screen min-h-screen flex justify-center place-items-center">
-          <Header fromQuizView={false} />
+        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
+          <Header fromQuizView={true} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
-            <p className="text-xl md:text-3xl text-center">Loading...</p>
+          <div className="flex-grow flex justify-center place-items-center w-screen">
+            <div className="z-10 max-w-6xl w-full mx-6 my-6 py-10 px-6 bg-gray-light rounded-xl flex flex-col place-items-center">
+              <p className="text-xl md:text-3xl text-center">Loading...</p>
+            </div>
           </div>
         </div>
       );
     } else {
       return (
-        <div className="bg-blue-light w-screen min-h-screen flex justify-center place-items-center">
+        <div className="bg-blue-light w-screen min-h-screen flex flex-col">
           <Header fromQuizView={true} />
           <QuestionBg className="z-0" />
-          <div className="z-10 max-w-6xl w-full mx-6 my-6 py-4 px-6 bg-gray-light rounded-xl flex flex-col">
-            <p className="font-cursive text-xl md:text-2xl font-bold self-center md:self-start">
-              Question {askedQuestionIds.length}/{quizLength}
-            </p>
-            <div>
-              <Timer
-                handleTimerEnd={this.handleTimerEnd}
-                tick={this.tick}
-                minutes={minutes}
-                seconds={seconds}
-                answerIsSubmit={answerIsSubmit}
-              />
-            </div>
-            <div className="font-sans w-full mt-10">
-              <h2 className="text-xl md:text-3xl text-center">
-                {currentQuestion}
-              </h2>
-              <form className="flex flex-col">
-                <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-6">
-                  {currentAnswers.map((answer) => (
-                    <TriviaAnswer
-                      answer={answer}
-                      correctAnswer={correctAnswer}
-                      selectedAnswer={this.state.selectedAnswer}
-                      handleChange={this.handleChange}
-                      answerIsSubmit={answerIsSubmit}
-                    />
-                  ))}
-                </div>
-                <p
-                  className={`self-center font-cursive text-center text-lg md:text-2xl ${
-                    this.state.selectedAnswer == this.state.correctAnswer
-                      ? "text-green"
-                      : "text-red"
-                  }`}
-                >
-                  {submitMessage}
-                </p>
-                <div className="flex flex-col md:flex-row w-full mt-4 md:mt-0 justify-start place-items-center">
-                  <p className="order-2 md:order-1 mt-4 md:mt-0 font-cursive text-center text-xl md:text-2xl">
-                    Total Points: {totalPoints}
+          <div className="flex-grow flex justify-center place-items-center w-screen">
+            <div className="z-10 self-center place-self-center max-w-6xl w-full mx-6 my-6 py-4 px-6 bg-gray-light rounded-xl flex flex-col">
+              <p className="font-cursive text-xl md:text-2xl font-bold self-center md:self-start">
+                Question {askedQuestionIds.length}/{quizLength}
+              </p>
+              <div>
+                <Timer
+                  handleTimerEnd={this.handleTimerEnd}
+                  tick={this.tick}
+                  minutes={minutes}
+                  seconds={seconds}
+                  answerIsSubmit={answerIsSubmit}
+                />
+              </div>
+              <div className="font-sans w-full mt-10">
+                <h2 className="text-xl md:text-3xl text-center">
+                  {currentQuestion}
+                </h2>
+                <form className="flex flex-col">
+                  <div className="self-center max-w-3xl w-full my-4 p-4 grid grid-rows-4 md:grid-cols-2 md:grid-rows-2 gap-6">
+                    {currentAnswers.map((answer) => (
+                      <TriviaAnswer
+                        answer={answer}
+                        correctAnswer={correctAnswer}
+                        selectedAnswer={this.state.selectedAnswer}
+                        handleChange={this.handleChange}
+                        answerIsSubmit={answerIsSubmit}
+                      />
+                    ))}
+                  </div>
+                  <p
+                    className={`self-center font-cursive text-center text-lg md:text-2xl ${
+                      this.state.selectedAnswer == this.state.correctAnswer
+                        ? "text-green"
+                        : "text-red"
+                    }`}
+                  >
+                    {submitMessage}
                   </p>
-                  <div className="order-2 flex-grow hidden md:block"> </div>
-                  <input
-                    type="submit"
-                    value="Submit Answer"
-                    onClick={this.handleSubmit}
-                    className={`order-1 md:order-3 px-2 md:px-4 py-1 bg-red font-capital text-xl md:text-2xl text-white rounded-md ${
-                      answerIsSubmit ? "hidden" : "block"
-                    } focus:outline-none`}
-                  />
-                  <button
-                    onClick={this.handleNextQuestionClick}
-                    className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
-                      answerIsSubmit && askedQuestionIds.length != quizLength
-                        ? "block"
-                        : "hidden"
-                    } focus:outline-none`}
-                  >
-                    Next Question
-                    <FontAwesomeIcon
-                      icon={faArrowRight}
-                      color="#FBFBFF"
-                      className="ml-2"
+                  <div className="flex flex-col md:flex-row w-full mt-4 md:mt-0 justify-start place-items-center">
+                    <p className="order-2 md:order-1 mt-4 md:mt-0 font-cursive text-center text-xl md:text-2xl">
+                      Total Points: {totalPoints}
+                    </p>
+                    <div className="order-2 flex-grow hidden md:block"> </div>
+                    <input
+                      type="submit"
+                      value="Submit Answer"
+                      onClick={this.handleSubmit}
+                      className={`order-1 md:order-3 px-2 md:px-4 py-1 bg-red font-capital text-xl md:text-2xl text-white rounded-md ${
+                        answerIsSubmit ? "hidden" : "block"
+                      } focus:outline-none`}
                     />
-                  </button>
-                  <Link
-                    to={{
-                      pathname: "/score",
-                      state: { score: totalPoints },
-                    }}
-                    className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
-                      answerIsSubmit && askedQuestionIds.length == quizLength
-                        ? "block"
-                        : "hidden"
-                    } focus:outline-none`}
-                  >
-                    End Quiz
-                  </Link>
-                </div>
-              </form>
+                    <button
+                      onClick={this.handleNextQuestionClick}
+                      className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
+                        answerIsSubmit && askedQuestionIds.length != quizLength
+                          ? "block"
+                          : "hidden"
+                      } focus:outline-none`}
+                    >
+                      Next Question
+                      <FontAwesomeIcon
+                        icon={faArrowRight}
+                        color="#FBFBFF"
+                        className="ml-2"
+                      />
+                    </button>
+                    <Link
+                      to={{
+                        pathname: "/score",
+                        state: { score: totalPoints },
+                      }}
+                      className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
+                        answerIsSubmit && askedQuestionIds.length == quizLength
+                          ? "block"
+                          : "hidden"
+                      } focus:outline-none`}
+                    >
+                      End Quiz
+                    </Link>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

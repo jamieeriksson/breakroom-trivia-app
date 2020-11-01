@@ -5,7 +5,7 @@ import { faQuestion } from "@fortawesome/free-solid-svg-icons";
 class QuestionBg extends React.Component {
   render() {
     return (
-      <div className="absolute text-4xl md:text-6xl xl:text-8xl w-screen h-screen overflow-hidden">
+      <div className="z-0 absolute inset-0 text-4xl md:text-6xl xl:text-8xl w-screen h-screen overflow-hidden">
         <FontAwesomeIcon
           icon={faQuestion}
           size="4x"
