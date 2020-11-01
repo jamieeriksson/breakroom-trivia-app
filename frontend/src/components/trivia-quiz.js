@@ -200,11 +200,15 @@ class TriviaQuiz extends React.Component {
       this.setState({
         submitMessage: "You answered correctly!",
         answerIsSubmit: true,
+        minutes: 0,
+        seconds: 0,
       });
     } else if (selectedAnswer != correctAnswer) {
       this.setState({
         submitMessage: "You answered incorrectly.",
         answerIsSubmit: true,
+        minutes: 0,
+        seconds: 0,
       });
     }
   }
@@ -220,14 +224,20 @@ class TriviaQuiz extends React.Component {
   tick() {
     let minutes = this.state.minutes;
     let seconds = this.state.seconds;
+    const answerIsSubmit = this.state.answerIsSubmit;
 
-    if (minutes === 0 && seconds === 0) {
-      this.handleTimerEnd();
-    } else if (seconds === 0) {
-      seconds = 59;
-      minutes = minutes - 1;
+    if (answerIsSubmit === false) {
+      if (minutes === 0 && seconds === 0) {
+        this.handleTimerEnd();
+      } else if (seconds === 0) {
+        seconds = 59;
+        minutes = minutes - 1;
+      } else {
+        seconds = seconds - 1;
+      }
     } else {
-      seconds = seconds - 1;
+      minutes = 0;
+      seconds = 0;
     }
 
     this.setState({
