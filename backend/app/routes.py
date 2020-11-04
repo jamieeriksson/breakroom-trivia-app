@@ -4,6 +4,9 @@ from flask import jsonify, request
 
 from .database.models import Question, db
 
+@app.route("/")
+def index():
+    return jsonify({"success": True})
 
 @app.route("/quiz", methods=["GET"])
 def quiz():
