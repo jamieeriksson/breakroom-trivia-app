@@ -1,0 +1,24 @@
+{
+  "name": "Breakroom Trivia",
+  "buildpacks": [
+    {
+      "url": "https://github.com/awesomepowertexas/subdir-heroku-buildpack"
+    },
+    {
+      "url": "heroku-community/apt"
+    },
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "env": {
+    "PROJECT_PATH": {
+      "value": "backend"
+    }
+  },
+  "environments": {
+    "review": {
+      "addons": ["heroku-postgresql:hobby-dev", "papertrail:choklad"]
+    }
+  }
+}
