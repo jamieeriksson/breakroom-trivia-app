@@ -119,7 +119,6 @@ class TriviaQuiz extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const currentQuestion = this.state.currentQuestion;
     const selectedAnswer = this.state.selectedAnswer;
     const correctAnswer = this.state.correctAnswer;
     const totalPoints = this.state.totalPoints;
