@@ -136,7 +136,7 @@ class TriviaQuiz extends React.Component {
         seconds: 0,
         totalPoints: totalPoints + 10,
       });
-    } else if (selectedAnswer != correctAnswer) {
+    } else if (selectedAnswer !== correctAnswer) {
       this.setState({
         submitMessage: "You answered incorrectly.",
         answerIsSubmit: true,
