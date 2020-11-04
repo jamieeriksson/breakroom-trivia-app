@@ -10,7 +10,7 @@ def create_app():
     """Initialize core application"""
     app = Flask(__name__)
     CORS(app)
-    app.config.from_object("config.DevConfig")
+    app.config.from_object("config.ProdConfig")
 
     setup_db(app)
 
