@@ -8,7 +8,7 @@ class SubmitMessage extends React.Component {
     return (
       <p
         className={`self-center font-cursive text-center text-lg md:text-2xl ${
-          this.props.selectedAnswer == this.props.correctAnswer
+          this.props.selectedAnswer === this.props.correctAnswer
             ? "text-green"
             : "text-red"
         }`}
@@ -58,7 +58,7 @@ class TriviaFooter extends React.Component {
           }}
           className={`order-1 md:order-3 px-2 md:px-4 py-1  bg-blue-dark font-capital text-xl md:text-2xl text-white rounded-md ${
             this.props.answerIsSubmit &&
-            this.props.askedQuestionIds.length == this.props.quizLength
+            this.props.askedQuestionIds.length === this.props.quizLength
               ? "block"
               : "hidden"
           } focus:outline-none`}

@@ -10,7 +10,7 @@ class TriviaAnswer extends React.Component {
     const selectedAnswer = this.props.selectedAnswer;
     const answerIsSubmit = this.props.answerIsSubmit;
 
-    if (answer == correctAnswer) {
+    if (answer === correctAnswer) {
       return (
         <div>
           <label className="text-lg md:text-2xl flex flex-wrap place-items-center">

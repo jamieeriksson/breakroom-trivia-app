@@ -128,7 +128,7 @@ class TriviaQuiz extends React.Component {
       this.setState({
         submitMessage: "Please select an answer before submitting.",
       });
-    } else if (selectedAnswer == correctAnswer) {
+    } else if (selectedAnswer === correctAnswer) {
       this.setState({
         submitMessage: "You answered correctly!",
         answerIsSubmit: true,
