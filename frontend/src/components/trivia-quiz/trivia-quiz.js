@@ -50,7 +50,9 @@ class TriviaQuiz extends React.Component {
       this._isMounted = true;
 
       try {
-        const response = await fetch("http://localhost:4444/quiz");
+        const response = await fetch(
+          "https://warm-river-84757.herokuapp.com/quiz"
+        );
         if (!response.ok) {
           throw Error(response.statusText);
         }
