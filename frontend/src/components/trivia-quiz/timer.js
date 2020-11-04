@@ -11,7 +11,6 @@ class Timer extends React.Component {
 
   render() {
     const { minutes, seconds, answerIsSubmit } = this.props;
-    const duration = minutes * 60 + seconds;
 
     return (
       <div className="flex flex-col">
