@@ -24,7 +24,6 @@ class TriviaQuiz extends React.Component {
       selectedAnswer: "",
       answerIsSubmit: false,
       submitMessage: "",
-      quizResults: [],
       totalPoints: 0,
     };
 
@@ -124,38 +123,25 @@ class TriviaQuiz extends React.Component {
     const selectedAnswer = this.state.selectedAnswer;
     const correctAnswer = this.state.correctAnswer;
     const totalPoints = this.state.totalPoints;
-    let oldQuizResults = this.state.quizResults;
 
     if (!selectedAnswer) {
       this.setState({
         submitMessage: "Please select an answer before submitting.",
       });
     } else if (selectedAnswer == correctAnswer) {
-      const updatedQuizResults = oldQuizResults.concat({
-        question: currentQuestion,
-        correctlyAnswered: true,
-      });
-
       this.setState({
         submitMessage: "You answered correctly!",
         answerIsSubmit: true,
         minutes: 0,
         seconds: 0,
         totalPoints: totalPoints + 10,
-        quizResults: updatedQuizResults,
       });
     } else if (selectedAnswer != correctAnswer) {
-      const updatedQuizResults = oldQuizResults.concat({
-        question: currentQuestion,
-        correctlyAnswered: false,
-      });
-
       this.setState({
         submitMessage: "You answered incorrectly.",
         answerIsSubmit: true,
         minutes: 0,
         seconds: 0,
-        quizResults: updatedQuizResults,
       });
     }
   }
@@ -223,7 +209,6 @@ class TriviaQuiz extends React.Component {
       minutes,
       seconds,
       totalPoints,
-      quizResults,
     } = this.state;
 
     if (error) {
